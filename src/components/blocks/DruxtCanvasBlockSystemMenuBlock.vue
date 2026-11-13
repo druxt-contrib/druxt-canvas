@@ -3,7 +3,7 @@ import {
   DruxtCanvasComponentMixin,
   hasComponent,
   renderBlock,
-  renderNotice,
+  renderDebug,
 } from '@druxt-contrib/canvas'
 
 /**
@@ -55,15 +55,13 @@ export default {
 
   render(h) {
     if (!hasComponent(this, 'DruxtMenu')) {
-      return renderNotice(
-        this,
+      return renderDebug(
         h,
         `The Canvas menu block "${this.name}" needs druxt-menu.`
       )
     }
     if (this.level > 1) {
-      return renderNotice(
-        this,
+      return renderDebug(
         h,
         `The Canvas menu block "${this.name}" starts at level ${this.level}, which DruxtMenu cannot render. Create a wrapper component for it.`
       )

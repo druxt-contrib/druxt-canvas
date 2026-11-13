@@ -5,6 +5,7 @@ import DruxtCanvasComponent from '../../src/components/DruxtCanvasComponent.vue'
 import { createVue, fixture, mountAll } from '../helpers'
 import {
   DruxtCanvasJsDruxtCard,
+  DruxtCanvasSdcMercuryCard,
   DruxtCanvasSdcMercuryHeading,
   DruxtCanvasSdcMercurySection,
 } from '../wrappers'
@@ -184,15 +185,12 @@ describe('DruxtCanvasComponent', () => {
       })
 
       expect(wrapper.find('section header h2').text()).toBe('Two cards')
-      // The cards have no wrapper: development placeholders, in order.
-      const missing = wrapper.findAll('section .main .druxt-canvas-missing')
-      expect(missing.length).toBe(2)
-      expect(missing.at(0).attributes('data-canvas-uuid')).toBe(
-        '3798689e-38ae-4d8f-95e0-4e8a81e900cc'
-      )
-      expect(missing.at(1).attributes('data-canvas-uuid')).toBe(
-        'bd036322-db19-4bab-beec-e66ea204703b'
-      )
+      // The cards have no wrapper and no slots: Druxt's debug message for
+      // each, in order.
+      const debug = wrapper.findAll('section .main > div > div > details')
+      expect(debug.length).toBe(2)
+      expect(debug.at(0).text()).toContain('First card')
+      expect(debug.at(1).text()).toContain('Second card')
     })
 
     test('the default slot is the slots in turn, for a code component', async () => {
@@ -248,50 +246,82 @@ describe('DruxtCanvasComponent', () => {
       const slots = wrapper.vm.$options.druxt.slots.call(wrapper.vm, h)
       expect(Object.keys(slots)).toStrictEqual(['default', 'other'])
       expect(slots.default()).toStrictEqual(['c1'])
+
+      // Without a wrapper, the default output is every slot in turn.
+      wrapper.vm.component = { ...wrapper.vm.component, is: 'DruxtWrapper' }
+      const output = wrapper.vm.$options.druxt.slots.call(wrapper.vm, h)
+      expect(output.default()).toStrictEqual(['c1', 'c2'])
+      expect(output.other()).toStrictEqual(['c2'])
     })
   })
 
   describe('a component without a wrapper', () => {
-    test('renders a placeholder naming the wrapper to create, in development', async () => {
+    // The section has two Canvas slots: a heading, then two cards. The
+    // heading and the cards have wrappers, the section has none.
+    const localVue = (isDev) =>
+      createVue({
+        components: { DruxtCanvasSdcMercuryCard, DruxtCanvasSdcMercuryHeading },
+        isDev,
+      })
+
+    test.each([
+      ['development', true],
+      ['production', false],
+    ])(
+      'renders its default output, its Canvas slots in order, in %s',
+      async (_, isDev) => {
+        const wrapper = await mountAll(DruxtCanvasComponent, {
+          localVue: localVue(isDev),
+          propsData: { item: find(page2, 'sdc.mercury.section') },
+        })
+
+        expect(wrapper.vm.component.is).toBe('DruxtWrapper')
+        expect(wrapper.vm.component.slots).toStrictEqual([
+          'header_slot',
+          'main_slot',
+          'default',
+        ])
+        // The heading, then the cards, inside the two elements every Druxt
+        // module renders around its wrapper, and with no debug message: the
+        // section has default output.
+        expect(
+          wrapper.findAll('h2, article').wrappers.map((node) => node.text())
+        ).toStrictEqual(['Two cards', 'First card', 'Second card'])
+        expect(wrapper.find('details').exists()).toBe(false)
+      }
+    )
+
+    test('with no slots, shows the Druxt debug message naming the wrapper options, in development', async () => {
       const wrapper = await mountAll(DruxtCanvasComponent, {
         localVue: createVue(),
-        propsData: { item: find(page2, 'sdc.mercury.section') },
+        propsData: { item: find(page2, 'sdc.mercury.button') },
       })
-      const placeholder = wrapper.find('.druxt-canvas-missing')
 
-      expect(wrapper.vm.isMissing).toBe(true)
-      expect(placeholder.attributes('data-canvas-component')).toBe(
-        'sdc.mercury.section'
+      // The module gives no default slot, so DruxtModule adds its own.
+      expect(
+        wrapper.vm.$options.druxt.slots.call(wrapper.vm, jest.fn())
+      ).toStrictEqual({})
+      expect(wrapper.find('details > summary').text()).toBe(
+        'Missing default slot'
       )
-      expect(placeholder.text()).toContain(
-        'Create DruxtCanvasSdcMercurySection to render it.'
-      )
-      expect(placeholder.text()).toContain(
-        'DruxtCanvasSdcMercurySection, DruxtCanvasSdcMercury, DruxtCanvasSdc, DruxtCanvasDefault'
-      )
-      expect(placeholder.text()).toContain('header_slot (1), main_slot (2)')
-      // Its children are not rendered, as in production.
-      expect(wrapper.findAll('.druxt-canvas-missing').length).toBe(1)
+      expect(
+        wrapper.findAll('option').wrappers.map((option) => option.text())
+      ).toStrictEqual([
+        'DruxtCanvasSdcMercuryButton',
+        'DruxtCanvasSdcMercury',
+        'DruxtCanvasSdc',
+        'DruxtCanvasDefault',
+      ])
+      expect(wrapper.text()).toContain('"label": "Read the docs"')
     })
 
-    test('leaves langcode variants out of the placeholder', async () => {
-      const wrapper = await mountAll(DruxtCanvasComponent, {
-        localVue: createVue(),
-        propsData: { item: find(page2, 'sdc.mercury.button'), langcode: 'en' },
-      })
-      expect(wrapper.find('.druxt-canvas-missing').text()).toContain(
-        'Any of these names will do, most specific first: DruxtCanvasSdcMercuryButton, DruxtCanvasSdcMercury, DruxtCanvasSdc, DruxtCanvasDefault.'
-      )
-    })
-
-    test('renders nothing in production', async () => {
+    test('with no slots, renders an empty element in production', async () => {
       const wrapper = await mountAll(DruxtCanvasComponent, {
         localVue: createVue({ isDev: false }),
-        propsData: { item: find(page2, 'sdc.mercury.section') },
+        propsData: { item: find(page2, 'sdc.mercury.button') },
       })
 
-      expect(wrapper.vm.isMissing).toBe(true)
-      expect(wrapper.html()).toBe('')
+      expect(wrapper.html()).toBe('<div>\n  <div></div>\n</div>')
     })
 
     test('renders the pending wrapper element while fetching', () => {

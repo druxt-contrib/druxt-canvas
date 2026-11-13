@@ -3,7 +3,7 @@ import {
   DruxtCanvasComponentMixin,
   hasComponent,
   renderBlock,
-  renderNotice,
+  renderDebug,
 } from '@druxt-contrib/canvas'
 
 /**
@@ -53,11 +53,10 @@ export default {
 
   render(h) {
     if (!hasComponent(this, 'DruxtView')) {
-      return renderNotice(this, h, 'The Canvas views block needs druxt-views.')
+      return renderDebug(h, 'The Canvas views block needs druxt-views.')
     }
     if (!this.ids) {
-      return renderNotice(
-        this,
+      return renderDebug(
         h,
         `The Canvas component id "${this.canvas.componentId}" names no view and display.`
       )

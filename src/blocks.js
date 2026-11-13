@@ -35,22 +35,15 @@ export const renderBlock = (h, { label, labelDisplay, content, uuid }) =>
   )
 
 /**
- * Renders a development notice in place of a block that cannot be rendered.
+ * Renders Druxt's debug message in place of a block that cannot be rendered.
  *
- * @param {object} vm - The component ViewModel.
+ * DruxtDebug shows the message in development only, and an empty element in
+ * production, as every Druxt module does.
+ *
  * @param {Function} h - The Vue createElement function.
- * @param {string} message - What is wrong.
+ * @param {string} summary - What is wrong.
  *
- * @returns {object} The notice VNode in development, an empty VNode otherwise.
+ * @returns {object} The DruxtDebug VNode.
  */
-export const renderNotice = (vm, h, message) => {
-  if (!((vm.$nuxt || {}).context || {}).isDev) return h()
-  return h(
-    'div',
-    {
-      class: 'druxt-canvas-missing',
-      attrs: { 'data-canvas-component': (vm.canvas || {}).componentId },
-    },
-    [h('p', [message])]
-  )
-}
+export const renderDebug = (h, summary) =>
+  h('DruxtDebug', { props: { summary } })

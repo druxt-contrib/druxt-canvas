@@ -106,13 +106,16 @@ describe('Canvas block mappings', () => {
         propsData: { canvas, level: 2 },
       })
       expect(wrapper.find('nav').exists()).toBe(false)
-      expect(wrapper.text()).toContain('starts at level 2')
+      expect(wrapper.find('details > summary').text()).toContain(
+        'starts at level 2'
+      )
 
       wrapper = mount(DruxtCanvasBlockSystemMenuBlock, {
         localVue: createVue({ components: { DruxtMenu }, isDev: false }),
         propsData: { canvas, level: 2 },
       })
-      expect(wrapper.html()).toBe('')
+      // DruxtDebug renders an empty element in production.
+      expect(wrapper.html()).toBe('<div></div>')
     })
 
     test('without druxt-menu, says so in development', () => {
@@ -120,11 +123,8 @@ describe('Canvas block mappings', () => {
         localVue: createVue(),
         propsData: { canvas: { componentId: 'block.system_menu_block.main' } },
       })
-      expect(wrapper.text()).toBe(
+      expect(wrapper.find('details > summary').text()).toBe(
         'The Canvas menu block "main" needs druxt-menu.'
-      )
-      expect(wrapper.attributes('data-canvas-component')).toBe(
-        'block.system_menu_block.main'
       )
     })
   })
@@ -175,12 +175,12 @@ describe('Canvas block mappings', () => {
       expect(wrapper.text()).toContain('names no view and display')
     })
 
-    test('without druxt-views, renders nothing in production', () => {
+    test('without druxt-views, renders an empty element in production', () => {
       const wrapper = mount(DruxtCanvasBlockViewsBlock, {
         localVue: createVue({ isDev: false }),
         propsData: { canvas: { componentId: item.componentId } },
       })
-      expect(wrapper.html()).toBe('')
+      expect(wrapper.html()).toBe('<div></div>')
     })
   })
 
@@ -214,7 +214,7 @@ describe('Canvas block mappings', () => {
         localVue: createVue(),
         propsData: { canvas: {} },
       })
-      expect(wrapper.text()).toBe(
+      expect(wrapper.find('details > summary').text()).toBe(
         'The Canvas breadcrumb block needs druxt-breadcrumb.'
       )
     })

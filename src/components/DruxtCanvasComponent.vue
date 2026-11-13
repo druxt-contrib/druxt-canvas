@@ -18,9 +18,13 @@ const PREFIX = 'DruxtCanvas'
  *
  * - The instance's inputs are the wrapper's props, in camelCase.
  * - Each Canvas slot is a scoped slot of the same name.
- * - The `default` slot is the Canvas slot named `default`, or every slot in turn.
- * - Without a wrapper, a placeholder naming the wrapper to create is rendered
- *   in development, and nothing in production.
+ * - The `default` slot is the component's default output: the content of
+ *   every Canvas slot, in order. A wrapper for a component with a Canvas slot
+ *   named `default` gets that slot alone.
+ * - Without a wrapper, the default output is rendered, as with any Druxt
+ *   module. A component with no slots has no default output, so development
+ *   shows Druxt's debug message naming the wrapper components to create, and
+ *   production renders an empty element.
  *
  * @example <caption>DruxtCanvas**Source**[**Provider**][**Name**].vue</caption> @lang vue
  * <template>
@@ -55,15 +59,6 @@ export default {
     },
   },
 
-  computed: {
-    /**
-     * Whether no wrapper component renders this instance.
-     *
-     * @type {boolean}
-     */
-    isMissing: ({ component }) => component.is === 'DruxtWrapper',
-  },
-
   methods: {
     /**
      * Gets the wrapper component options, named from `DruxtCanvas` rather than
@@ -80,63 +75,6 @@ export default {
       } finally {
         this.$options.name = name
       }
-    },
-
-    /**
-     * Renders the development placeholder for an instance without a wrapper.
-     *
-     * @param {Function} h - The Vue createElement function.
-     *
-     * @returns {object} The placeholder VNode.
-     */
-    renderPlaceholder(h) {
-      // The candidates without their langcode variants.
-      const options = this.getModuleComponents()
-        .filter(
-          ({ parts }) => !this.lang || parts[parts.length - 1] !== this.lang
-        )
-        .map(({ name }) => name)
-      const slots = Object.entries(this.item.slots || {}).map(
-        ([name, children]) => `${name} (${children.length})`
-      )
-
-      return h(
-        'div',
-        {
-          class: 'druxt-canvas-missing',
-          attrs: {
-            'data-canvas-component': this.item.componentId,
-            'data-canvas-uuid': this.item.uuid,
-          },
-        },
-        [
-          h('p', [
-            'No wrapper component renders the Canvas component ',
-            h('code', [this.item.componentId]),
-            '. Create ',
-            h('code', [options[0] || `${PREFIX}Default`]),
-            ' to render it.',
-          ]),
-          options.length > 1 &&
-            h('p', [
-              'Any of these names will do, most specific first: ',
-              options.join(', '),
-              '.',
-            ]),
-          slots.length &&
-            h('p', [
-              'Its slots, with their instances: ',
-              slots.join(', '),
-              '.',
-            ]),
-          h('details', [
-            h('summary', 'Props'),
-            h('pre', [
-              h('code', [JSON.stringify(this.item.props, null, '  ')]),
-            ]),
-          ]),
-        ].filter((o) => o)
-      )
     },
   },
 
@@ -177,6 +115,12 @@ export default {
     /**
      * Provides a scoped slot for each Canvas slot, and the `default` slot.
      *
+     * The `default` slot is the default output, every Canvas slot in order,
+     * so a component without a wrapper renders its children, as DruxtEntity
+     * renders its fields. A component with no Canvas slots has no default
+     * output and provides no `default` slot, which leaves DruxtModule to show
+     * its debug message in development.
+     *
      * @param {Function} h - The Vue createElement function.
      * @return {ScopedSlots} The scoped slots object.
      */
@@ -196,28 +140,22 @@ export default {
           )
       }
 
-      if (this.isMissing) {
-        slots.default = () =>
-          this.$nuxt.context.isDev ? [this.renderPlaceholder(h)] : []
-      } else if (!slots.default) {
-        const names = Object.keys(slots)
-        slots.default = (attrs) => names.flatMap((name) => slots[name](attrs))
+      const names = Object.keys(slots)
+      if (!names.length) {
+        return slots
+      }
+
+      // A wrapper renders the Canvas slot named `default` by that name, and
+      // the others by theirs. Without a wrapper, the default output holds
+      // them all.
+      const hasWrapper = this.component.is !== 'DruxtWrapper'
+      if (!(hasWrapper && slots.default)) {
+        const content = { ...slots }
+        slots.default = (attrs) => names.flatMap((name) => content[name](attrs))
       }
 
       return slots
     },
-  },
-
-  render(h) {
-    // Without a wrapper, production renders nothing at all.
-    if (
-      !this.$fetchState.pending &&
-      this.isMissing &&
-      !this.$nuxt.context.isDev
-    ) {
-      return h()
-    }
-    return DruxtModule.render.call(this, h)
   },
 }
 
@@ -269,6 +207,6 @@ export default {
  *
  * @typedef {object} ScopedSlots
  * @param {function} * - Slot per Canvas slot.
- * @param {function} default - The Canvas slot named `default`, or every slot in turn.
+ * @param {function} default - Every Canvas slot in turn, or for a wrapper, the Canvas slot named `default`.
  */
 </script>

@@ -57,7 +57,7 @@ const DruxtCanvasNuxtModule = function (moduleOptions = {}) {
   })
 
   // Leave out a block mapping whose Druxt module is not installed, so the
-  // block falls back to the site's wrappers or the missing wrapper placeholder.
+  // block falls back to the site's wrappers, or to Druxt's debug message.
   this.nuxt.hook('components:extend', (components) => {
     const names = new Set(components.map((component) => component.pascalName))
     for (let index = components.length - 1; index >= 0; index--) {
@@ -102,4 +102,4 @@ export { getHead } from './head'
  *
  * @see {@link ./blocks|blocks}
  */
-export { hasComponent, renderBlock, renderNotice } from './blocks'
+export { hasComponent, renderBlock, renderDebug } from './blocks'

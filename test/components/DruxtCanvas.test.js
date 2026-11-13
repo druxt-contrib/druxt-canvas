@@ -63,12 +63,19 @@ describe('DruxtCanvas', () => {
         .wrappers.map((w) => w.text())
     ).toStrictEqual(['First card', 'Second card'])
 
-    // A component without a wrapper.
+    // The page has no page wrapper: its default output is its tree.
+    expect(wrapper.vm.component.is).toBe('DruxtWrapper')
+
+    // Components without a wrapper and with no slots: Druxt's debug message
+    // in development, naming the wrappers to create.
     expect(
       wrapper
-        .findAll('.druxt-canvas-missing')
-        .wrappers.map((w) => w.attributes('data-canvas-component'))
-    ).toStrictEqual(['sdc.mercury.text', 'sdc.mercury.button'])
+        .findAll('details > div > select > option:first-child')
+        .wrappers.map((w) => w.text())
+    ).toStrictEqual([
+      'DruxtCanvasSdcMercuryText',
+      'DruxtCanvasSdcMercuryButton',
+    ])
 
     // The block mappings.
     expect(
@@ -79,16 +86,31 @@ describe('DruxtCanvas', () => {
     ).toMatchObject({ viewId: 'recent_pages', displayId: 'block_recent_pages' })
   })
 
-  test('renders nothing for a missing wrapper in production', async () => {
+  test('shows no debug message in production', async () => {
     const store = createStore({ resources: { [uuid]: page2 } })
     const wrapper = await mountAll(DruxtCanvas, {
       localVue: createVue({ components, store, isDev: false }),
       propsData: { uuid },
     })
 
-    expect(wrapper.findAll('.druxt-canvas-missing').length).toBe(0)
+    expect(wrapper.find('details').exists()).toBe(false)
     expect(wrapper.find('h1').text()).toBe('Druxt meets Canvas')
     expect(wrapper.html()).not.toContain('sdc.mercury.text')
+  })
+
+  test('renders the children of a component without a wrapper, in production', async () => {
+    // No section wrapper: the section's heading and cards still render.
+    const { DruxtCanvasSdcMercurySection, ...others } = components
+    expect(DruxtCanvasSdcMercurySection).toBeDefined()
+    const wrapper = await mountAll(DruxtCanvas, {
+      localVue: createVue({ components: others, isDev: false }),
+      propsData: { value: page2.data },
+    })
+
+    expect(wrapper.find('section').exists()).toBe(false)
+    expect(
+      wrapper.findAll('h2, article.card').wrappers.map((w) => w.text())
+    ).toStrictEqual(['Two cards', 'First card', 'Second card'])
   })
 
   test('accepts an already fetched resource', async () => {

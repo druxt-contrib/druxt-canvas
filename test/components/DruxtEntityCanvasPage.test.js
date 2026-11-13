@@ -78,7 +78,9 @@ describe('DruxtEntityCanvasPageFull', () => {
     expect(wrapper.findComponent({ name: 'DruxtCanvas' }).vm.entity.id).toBe(
       external.data.id
     )
-    expect(wrapper.findAll('.druxt-canvas-missing').length).toBe(4)
+    // Four components have no wrapper and no slots: the heading, the menu in
+    // the card's slot, the view and the entity. The card renders its slot.
+    expect(wrapper.findAll('details[title]').length).toBe(4)
   })
 
   test.each([

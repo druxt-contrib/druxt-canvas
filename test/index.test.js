@@ -81,7 +81,7 @@ describe('DruxtCanvasNuxtModule', () => {
       'getHead',
       'hasComponent',
       'renderBlock',
-      'renderNotice',
+      'renderDebug',
     ])
   })
   test('every export resolves', () => {

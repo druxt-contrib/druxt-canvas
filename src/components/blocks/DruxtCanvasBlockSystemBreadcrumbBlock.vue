@@ -3,7 +3,7 @@ import {
   DruxtCanvasComponentMixin,
   hasComponent,
   renderBlock,
-  renderNotice,
+  renderDebug,
 } from '@druxt-contrib/canvas'
 
 /**
@@ -31,8 +31,7 @@ export default {
 
   render(h) {
     if (!hasComponent(this, 'DruxtBreadcrumb')) {
-      return renderNotice(
-        this,
+      return renderDebug(
         h,
         'The Canvas breadcrumb block needs druxt-breadcrumb.'
       )

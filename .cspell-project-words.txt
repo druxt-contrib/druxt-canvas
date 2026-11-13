@@ -61,6 +61,7 @@ opencode
 pdo
 pyyaml
 refetches
+sarif
 shivammathur
 shortlink
 siroc

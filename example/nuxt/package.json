@@ -8,9 +8,9 @@
     "start": "nuxt start"
   },
   "dependencies": {
-    "consola": "2.15.3",
-    "druxt": "^0.21.0",
     "@druxt-contrib/canvas": "file:../..",
+    "consola": "2.15.3",
+    "druxt": "^0.25.1",
     "nuxt": "2.15.8"
   },
   "private": true,

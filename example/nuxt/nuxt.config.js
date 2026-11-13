@@ -27,4 +27,7 @@ const baseUrl =
 export default {
   buildModules: ['druxt', '@druxt-contrib/canvas'],
   druxt: { baseUrl },
+  // The pages are the example's routes. A Canvas page links to paths on the
+  // Drupal site, which this example does not serve.
+  generate: { crawler: false },
 }

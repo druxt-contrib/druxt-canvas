@@ -23,7 +23,7 @@ Canvas 1.12.0, kept in `test/fixtures`, and handed to `DruxtCanvas` as its
 `value`. Everything after the request is the module at work, from building the
 component tree to setting the page head.
 
-`/canvas` is a Canvas page on the example backend, which DruxtRouter renders by
+`/canvas-demo` is a Canvas page on the example backend, which DruxtRouter renders by
 its path with no page in the example. `/backend` renders the same page by its
 uuid. It holds two code component cards, one in the other's slot, and the main
 menu block.

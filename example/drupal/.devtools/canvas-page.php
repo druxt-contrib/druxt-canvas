@@ -8,7 +8,8 @@
  * a code component, `js.druxt_card`, which the example renders through
  * nuxt/components/DruxtCanvasJsDruxtCard.vue. One card sits in the other's
  * slot, and the main menu block follows them. The uuids are fixed, because
- * the example and its tests name the page by them.
+ * the example and its tests name the page by them. Its alias is not /canvas,
+ * where Canvas's own editor starts.
  */
 
 declare(strict_types=1);
@@ -65,7 +66,7 @@ $page = \Drupal::entityTypeManager()->getStorage('canvas_page')->create([
   'title' => 'Canvas on the backend',
   'description' => 'A Canvas page from the example backend.',
   'status' => TRUE,
-  'path' => ['alias' => '/canvas'],
+  'path' => ['alias' => '/canvas-demo'],
   'components' => $tree,
 ]);
 $violations = $page->validate();
@@ -76,4 +77,4 @@ if (count($violations)) {
   exit(1);
 }
 $page->save();
-echo 'Canvas page ' . $page->uuid() . ' at /canvas' . PHP_EOL;
+echo 'Canvas page ' . $page->uuid() . ' at /canvas-demo' . PHP_EOL;

@@ -93,7 +93,7 @@ PASS('druxt enabled; anonymous can access Druxt resources.');
 TASK('Enabling Canvas and saving a Canvas page.');
 drush('pm:enable canvas');
 drush('php:script %s', __DIR__ . '/canvas-page.php');
-PASS('Canvas enabled, with a page at /canvas.');
+PASS('Canvas enabled, with a page at /canvas-demo.');
 
 echo PHP_EOL;
 echo '===============================' . PHP_EOL;

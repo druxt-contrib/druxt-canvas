@@ -99,7 +99,7 @@ test.describe('a Canvas page from the backend', () => {
   test('renders by its path, through DruxtRouter and DruxtEntity', async ({
     page,
   }) => {
-    const response = await page.goto('/canvas')
+    const response = await page.goto('/canvas-demo')
     expect(response.status()).toBe(200)
 
     await expect(page).toHaveTitle('Canvas on the backend')

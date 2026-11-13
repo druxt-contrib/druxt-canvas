@@ -8,9 +8,10 @@ const { test, expect } = require('@playwright/test')
  * registers, the block mappings it leaves out at build time, the site's own
  * wrapper components and the page head.
  *
- * The example backend has no Canvas, so the example renders Canvas pages that
- * were saved from a Drupal CMS site with Canvas (test/fixtures). The checks
- * that need Canvas on the backend are listed at the end, skipped.
+ * `/` and `/external` render Canvas pages saved from a Drupal CMS site with
+ * Canvas (test/fixtures), for Mercury's components. The example backend has
+ * Canvas too, with one page of its own, read at the end by its path and by
+ * its uuid.
  */
 
 test.describe('a saved Canvas page', () => {
@@ -82,14 +83,33 @@ test.describe('a saved Canvas page', () => {
 })
 
 test.describe('a Canvas page from the backend', () => {
-  // These need Drupal Canvas on the example backend, which runs Drupal core
-  // with the standard profile and no Canvas. See example/README.md.
-  test.skip(
-    true,
-    'The example backend does not have Drupal Canvas installed. See example/README.md.'
-  )
+  // example/drupal/.devtools/canvas-page.php saves it: two code component
+  // cards, one in the other's slot, then the main menu block.
+  const expectTree = async (page) => {
+    await expect(page.locator('.druxt-card > h3')).toHaveText([
+      'From the backend',
+      'A nested card',
+    ])
+    await expect(page.locator('.druxt-card .druxt-card p')).toHaveText(
+      "In the outer card's content slot."
+    )
+    await expect(page.locator('nav')).toHaveCount(0)
+  }
 
-  test('renders by its path, through DruxtRouter and DruxtEntity', () => {})
+  test('renders by its path, through DruxtRouter and DruxtEntity', async ({
+    page,
+  }) => {
+    const response = await page.goto('/canvas')
+    expect(response.status()).toBe(200)
 
-  test('renders by uuid, fetched through the Druxt store', () => {})
+    await expect(page).toHaveTitle('Canvas on the backend')
+    await expectTree(page)
+  })
+
+  test('renders by uuid, fetched through the Druxt store', async ({ page }) => {
+    const response = await page.goto('/backend')
+    expect(response.status()).toBe(200)
+
+    await expectTree(page)
+  })
 })

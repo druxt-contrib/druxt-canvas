@@ -23,6 +23,11 @@ Canvas 1.12.0, kept in `test/fixtures`, and handed to `DruxtCanvas` as its
 `value`. Everything after the request is the module at work, from building the
 component tree to setting the page head.
 
+`/canvas` is a Canvas page on the example backend, which DruxtRouter renders by
+its path with no page in the example. `/backend` renders the same page by its
+uuid. It holds two code component cards, one in the other's slot, and the main
+menu block.
+
 The wrapper components are in `nuxt/components`. The menu and views blocks have
 none, and the example installs neither druxt-menu nor druxt-views, so they
 render as empty elements. Under `example:dev` each shows Druxt's debug message
@@ -35,19 +40,20 @@ naming the wrapper components it would accept.
 the example (`npm run example:generate`) and serve `example/nuxt/dist` with
 `npm run serve` instead, which is what a visitor gets.
 
-The checks that need a Drupal backend with Canvas, a Canvas page reached by its
-path and a Canvas page fetched by uuid, are in `test/e2e/canvas.spec.js` and are
-skipped, with that reason.
+The checks of the backend's Canvas page, by its path and by its uuid, need the
+backend running when the example is generated.
 
 ## The backend
 
-`drupal/` is a Drupal 11 site on SQLite with the Druxt module, which
+`drupal/` is a Drupal 11 site on SQLite with the Druxt module and Canvas, which
 `npm run example:setup` provisions without Docker, with PHP 8.3 or later and
-Composer on the host. It does not have Canvas yet, so the example does not read
-from it. Giving it Canvas means adding `drupal/canvas` to `drupal/composer.json`
-(Canvas needs Drupal 11.3 or later), enabling it and creating a Canvas page in
-`drupal/.devtools/provision`, and applying the fix for the Canvas defect the
-main README describes.
+Composer on the host. Its view displays fit on one JSON:API page, which keeps
+it clear of the Canvas defect the main README describes.
+
+`drupal/.devtools/canvas-page.php` saves its one Canvas page. The core standard
+profile has no single-directory component with text inputs, so the page is
+built from a code component, rendered by the example's `DruxtCanvasJsDruxtCard`
+wrapper.
 
 `cd example/drupal && ddev start && ddev drupal-install` builds the same site
 on DDEV's MySQL.
@@ -59,11 +65,11 @@ what the Drupal site needs.
 
 ## What is in here
 
-| Path                   | Purpose                                                          |
-| ---------------------- | ---------------------------------------------------------------- |
-| `nuxt/`                | The Nuxt 2 application, with the module as `file:../..`          |
-| `nuxt/components/`     | Wrapper components for Mercury's components and a code component |
-| `nuxt/pages/`          | Saved Canvas pages, at `/` and `/external`                       |
-| `nuxt/package.json`    | Pins `consola` 2: webpack 4 cannot parse the version 3 build     |
-| `drupal/composer.json` | Drupal 11 with `drupal/druxt`; the lock is committed             |
-| `drupal/.devtools/`    | Docker-free provisioning: assemble, provision, start, stop, info |
+| Path                   | Purpose                                                                  |
+| ---------------------- | ------------------------------------------------------------------------ |
+| `nuxt/`                | The Nuxt 2 application, with the module as `file:../..`                  |
+| `nuxt/components/`     | Wrapper components for Mercury's components and a code component         |
+| `nuxt/pages/`          | Saved Canvas pages at `/` and `/external`; the backend's at `/backend`   |
+| `nuxt/package.json`    | Pins `consola` 2: webpack 4 cannot parse the version 3 build             |
+| `drupal/composer.json` | Drupal 11 with `drupal/druxt` and `drupal/canvas`; the lock is committed |
+| `drupal/.devtools/`    | Docker-free provisioning: assemble, provision, start, stop, info         |

@@ -25,9 +25,17 @@ const baseUrl =
   'http://druxt-canvas.ddev.site'
 
 export default {
-  buildModules: ['druxt', '@druxt-contrib/canvas'],
+  // druxt-entity and druxt-router route a Canvas page's path to it: /canvas
+  // is a page on the backend, with no page here.
+  buildModules: [
+    'druxt',
+    'druxt-entity',
+    'druxt-router/nuxt',
+    '@druxt-contrib/canvas',
+  ],
   druxt: { baseUrl },
-  // The pages are the example's routes. A Canvas page links to paths on the
-  // Drupal site, which this example does not serve.
-  generate: { crawler: false },
+  // The pages are the example's routes, plus the backend's Canvas page. A
+  // Canvas page links to paths on the Drupal site, which this example does
+  // not serve.
+  generate: { crawler: false, routes: ['/canvas'] },
 }

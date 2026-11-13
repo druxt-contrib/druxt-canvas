@@ -4,9 +4,10 @@
 /**
  * @file
  * Provision the example backend: a fresh standard-profile `drush
- * site:install` against a throwaway SQLite database, with `druxt` enabled
- * and anonymous read access to its resources. That is all the example
- * application reads, so there is nothing to import.
+ * site:install` against a throwaway SQLite database, with `druxt` enabled,
+ * anonymous read access to its resources, and Canvas with one page
+ * (canvas-page.php). That is all the example application reads, so there is
+ * nothing to import.
  *
  * The SQLite override lives in `web/sites/default/settings.local.php`
  * (gitignored), not `settings.php`. This repo has no committed
@@ -85,6 +86,14 @@ TASK('Enabling the druxt module.');
 drush('pm:enable druxt');
 drush('role:perm:add anonymous %s', 'access druxt resources');
 PASS('druxt enabled; anonymous can access Druxt resources.');
+
+// Anyone may view a published Canvas page, so JSON:API serves it with no
+// further permission. Decoupled Router, which the druxt module requires,
+// resolves its path.
+TASK('Enabling Canvas and saving a Canvas page.');
+drush('pm:enable canvas');
+drush('php:script %s', __DIR__ . '/canvas-page.php');
+PASS('Canvas enabled, with a page at /canvas.');
 
 echo PHP_EOL;
 echo '===============================' . PHP_EOL;

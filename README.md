@@ -309,9 +309,9 @@ CMS 2.2.9 site with Canvas 1.12.0, in `test/fixtures`.
 
 ### The example application
 
-`example/` holds a Nuxt application that renders two saved Canvas pages through
-wrapper components a site would write, and a Drupal 11 backend that does not
-have Canvas yet. See `example/README.md`.
+`example/` holds a Nuxt application that renders Canvas pages through wrapper
+components a site would write, and its Drupal 11 backend with Canvas. See
+`example/README.md`.
 
 ## Contributing
 

@@ -13,3 +13,5 @@ drush -y recipe:apply /var/www/html/web/core/recipes/page_content_type
 drush -y cache:rebuild
 drush -y pm:enable druxt
 drush role:perm:add anonymous 'access druxt resources'
+drush -y pm:enable canvas
+drush php:script /var/www/html/.devtools/canvas-page.php

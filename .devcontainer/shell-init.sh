@@ -35,7 +35,7 @@ fi
 
 cat <<EOF
 
-Druxt module template
+DruxtCanvas
   npm run build         Build the module
   npm test              Unit tests, with the coverage floor enforced
   npm run lint          Every linter except prose

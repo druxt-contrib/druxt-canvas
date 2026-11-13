@@ -1,6 +1,6 @@
 # Releasing
 
-The package publishes to npm from `.github/workflows/release.yml`. Nobody runs `npm publish` by hand. A module made from this template inherits the workflow, and turns it on with the [one-time setup](#one-time-setup).
+`@druxt-contrib/canvas` publishes to npm from `.github/workflows/release.yml`. Nobody runs `npm publish` by hand. The workflow stays off until the [one-time setup](#one-time-setup) is done.
 
 | Channel     | npm dist-tag | When it publishes                                         | What it is for                        |
 | ----------- | ------------ | --------------------------------------------------------- | ------------------------------------- |
@@ -14,7 +14,7 @@ A release branch is named for its major, such as `0.x` or `1.x`. The workflow ma
 A push to a release branch that adds or changes a changeset cuts a snapshot and publishes it under the `dev` tag:
 
 ```bash
-npm install <package>@dev
+npm install @druxt-contrib/canvas@dev
 ```
 
 A snapshot version reads `0.1.0-dev.20261030024907`: the version the pending changesets add up to, then the tag and a timestamp. Nothing is committed, no git tag is made, and `latest` does not move. A changeset that releases nothing, such as an empty one, cuts no snapshot.
@@ -23,7 +23,7 @@ To follow the channel on a site, let Renovate track the tag:
 
 ```json
 {
-  "packageRules": [{ "matchPackageNames": ["<package>"], "followTag": "dev" }]
+  "packageRules": [{ "matchPackageNames": ["@druxt-contrib/canvas"], "followTag": "dev" }]
 }
 ```
 
@@ -32,7 +32,7 @@ To follow the channel on a site, let Renovate track the tag:
 1. Merge pull requests that carry a changeset. Add one with `npm run changeset`.
 2. The workflow opens a pull request titled `chore(release): version packages`, and keeps it up to date. It holds the version bump and the changelog entry.
 3. Merge that pull request when the release is ready. This is the release decision.
-4. The push that follows waits for a reviewer to approve the `release` environment, then publishes the new version to `latest`. It also creates a `<package>@<version>` tag, with a GitHub Release whose notes are that version's CHANGELOG entry.
+4. The push that follows waits for a reviewer to approve the `release` environment, then publishes the new version to `latest`. It also creates a `@druxt-contrib/canvas@<version>` tag, with a GitHub Release whose notes are that version's CHANGELOG entry.
 
 A release from an older major's branch publishes under its own tag: `1.9.1`, cut on `1.x` after `2.0.0`, goes to `latest-1`. GitHub does not mark its Release as the latest one. A prerelease publishes under `next`.
 

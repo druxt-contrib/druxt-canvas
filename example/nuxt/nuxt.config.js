@@ -22,9 +22,9 @@ function readDotenvBaseUrl() {
 const baseUrl =
   process.env.DRUXT_BASE_URL ||
   readDotenvBaseUrl() ||
-  'http://druxt-module-template.ddev.site'
+  'http://druxt-canvas.ddev.site'
 
 export default {
-  buildModules: ['druxt', 'druxt-module-template'],
+  buildModules: ['druxt', '@druxt-contrib/canvas'],
   druxt: { baseUrl },
 }

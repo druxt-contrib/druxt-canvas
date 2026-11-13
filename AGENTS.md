@@ -1,7 +1,8 @@
 # Agent instructions
 
-Starting point for a Druxt module, and the reference for how every Druxt
-module is set up.
+DruxtCanvas renders Drupal Canvas pages in a Druxt site. The repository is
+set up from the Druxt module template, so its tooling and rules are the same
+as every other Druxt module's.
 
 ## Rules
 

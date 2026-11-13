@@ -1,11 +1,22 @@
 {
-  "name": "druxt-module-template",
+  "name": "@druxt-contrib/canvas",
   "version": "0.0.0",
-  "description": "Starting point for a Druxt module.",
+  "description": "Drupal Canvas pages for Druxt.",
   "keywords": [
+    "canvas",
+    "drupal",
     "druxt",
-    "module"
+    "module",
+    "nuxt"
   ],
+  "homepage": "https://github.com/druxt-contrib/druxt-canvas#readme",
+  "bugs": {
+    "url": "https://github.com/druxt-contrib/druxt-canvas/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/druxt-contrib/druxt-canvas.git"
+  },
   "license": "MIT",
   "exports": {
     ".": {

@@ -1,8 +1,7 @@
 # Contributing
 
-Thanks for helping. This template is the reference for how every Druxt
-module is set up, so a change here is a change to what every Druxt module
-starts from.
+Thanks for helping. DruxtCanvas is set up from the Druxt module template, so
+what follows holds for every Druxt module.
 
 ## Getting set up
 

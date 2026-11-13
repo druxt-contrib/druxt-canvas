@@ -1,10 +1,10 @@
-# Druxt module template
+# DruxtCanvas
 
-[![npm](https://img.shields.io/npm/v/druxt-module-template)](https://www.npmjs.com/package/druxt-module-template)
-[![npm@dev](https://img.shields.io/npm/v/druxt-module-template/dev)](https://www.npmjs.com/package/druxt-module-template/v/dev)
-[![CI](https://github.com/druxt/module-template/actions/workflows/ci.yml/badge.svg?branch=0.x)](https://github.com/druxt/module-template/actions/workflows/ci.yml)
-[![codecov](https://codecov.io/gh/druxt/module-template/branch/0.x/graph/badge.svg)](https://codecov.io/gh/druxt/module-template)
-[![Known Vulnerabilities](https://snyk.io/test/github/druxt/module-template/badge.svg?targetFile=package.json)](https://snyk.io/test/github/druxt/module-template?targetFile=package.json)
+[![npm](https://img.shields.io/npm/v/@druxt-contrib/canvas)](https://www.npmjs.com/package/@druxt-contrib/canvas)
+[![npm@dev](https://img.shields.io/npm/v/@druxt-contrib/canvas/dev)](https://www.npmjs.com/package/@druxt-contrib/canvas/v/dev)
+[![CI](https://github.com/druxt-contrib/druxt-canvas/actions/workflows/ci.yml/badge.svg?branch=0.x)](https://github.com/druxt-contrib/druxt-canvas/actions/workflows/ci.yml)
+[![codecov](https://codecov.io/gh/druxt-contrib/druxt-canvas/branch/0.x/graph/badge.svg)](https://codecov.io/gh/druxt-contrib/druxt-canvas)
+[![Known Vulnerabilities](https://snyk.io/test/github/druxt-contrib/druxt-canvas/badge.svg?targetFile=package.json)](https://snyk.io/test/github/druxt-contrib/druxt-canvas?targetFile=package.json)
 [![Discord](https://img.shields.io/discord/753866667590680587?label=discord&logo=discord&logoColor=white)](https://discord.druxtjs.org)
 
 Starting point for a [Druxt](https://druxtjs.org) module, and the reference

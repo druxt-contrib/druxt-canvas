@@ -1,0 +1,14 @@
+{
+  "jsonapi": {
+    "version": "1.1",
+    "meta": {
+      "links": { "self": { "href": "https://jsonapi.org/format/1.1/" } }
+    }
+  },
+  "data": [],
+  "links": {
+    "self": {
+      "href": "http://127.0.0.1:8890/jsonapi/entity_view_display/entity_view_display?filter%5BtargetEntityType%5D=canvas_page"
+    }
+  }
+}

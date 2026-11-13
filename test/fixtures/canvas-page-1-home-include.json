@@ -1,0 +1,189 @@
+{
+  "jsonapi": {
+    "version": "1.1",
+    "meta": {
+      "links": { "self": { "href": "https://jsonapi.org/format/1.1/" } }
+    }
+  },
+  "data": {
+    "type": "canvas_page--canvas_page",
+    "id": "bb5bbbb1-4a16-4b86-bbea-b215ab8096cf",
+    "links": {
+      "self": {
+        "href": "http://127.0.0.1:8890/jsonapi/canvas_page/canvas_page/bb5bbbb1-4a16-4b86-bbea-b215ab8096cf?resourceVersion=id%3A1"
+      },
+      "working-copy": {
+        "href": "http://127.0.0.1:8890/jsonapi/canvas_page/canvas_page/bb5bbbb1-4a16-4b86-bbea-b215ab8096cf?resourceVersion=rel%3Aworking-copy"
+      }
+    },
+    "attributes": {
+      "drupal_internal__id": 1,
+      "drupal_internal__revision_id": 1,
+      "langcode": "en",
+      "revision_created": "2026-11-13T19:51:34+00:00",
+      "status": true,
+      "title": "Home",
+      "description": null,
+      "components": [
+        {
+          "parent_uuid": null,
+          "slot": null,
+          "uuid": "b7563f5f-d4db-4029-a292-593e82fda2ec",
+          "component_id": "sdc.mercury.cta",
+          "component_version": "7f6c40ea90b84edc",
+          "inputs": "{\u0022heading_text\u0022:\u0022Your hero content goes here\u0022,\u0022level\u0022:1,\u0022text\u0022:\u0022Bring your site to life, starting here.\u0022,\u0022text_align\u0022:\u0022center\u0022,\u0022overlay_opacity\u0022:\u002220%\u0022}",
+          "label": null,
+          "inputs_resolved": {
+            "heading_text": "Your hero content goes here",
+            "level": 1,
+            "text": "Bring your site to life, starting here.",
+            "text_align": "center",
+            "overlay_opacity": "20%"
+          }
+        },
+        {
+          "parent_uuid": "b7563f5f-d4db-4029-a292-593e82fda2ec",
+          "slot": "actions",
+          "uuid": "1c006688-4739-47e3-a57c-eaa65026afbf",
+          "component_id": "sdc.mercury.button",
+          "component_version": "0ca665b3987e81dd",
+          "inputs": "{\u0022variant\u0022:\u0022primary\u0022,\u0022size\u0022:\u0022large\u0022,\u0022label\u0022:\u0022Call to action\u0022,\u0022mobile_width\u0022:false,\u0022icon\u0022:\u0022arrow-right\u0022,\u0022icon_first\u0022:false,\u0022disabled\u0022:false}",
+          "label": null,
+          "inputs_resolved": {
+            "variant": "primary",
+            "size": "large",
+            "label": "Call to action",
+            "mobile_width": false,
+            "icon": "arrow-right",
+            "icon_first": false,
+            "disabled": false
+          }
+        }
+      ],
+      "page_variant": null,
+      "path": { "alias": "/home", "pid": 2, "langcode": "en" },
+      "created": "2026-11-13T19:51:34+00:00",
+      "changed": "2026-11-13T19:51:34+00:00",
+      "default_langcode": true,
+      "revision_translation_affected": true,
+      "metatag": [
+        {
+          "tag": "meta",
+          "attributes": { "name": "title", "content": "Home | Canvas demo" }
+        },
+        {
+          "tag": "link",
+          "attributes": { "rel": "canonical", "href": "/home" }
+        },
+        {
+          "tag": "link",
+          "attributes": {
+            "rel": "shortlink",
+            "href": "http://127.0.0.1:8890/jsonapi/canvas_page/canvas_page/bb5bbbb1-4a16-4b86-bbea-b215ab8096cf"
+          }
+        },
+        {
+          "tag": "meta",
+          "attributes": {
+            "name": "rights",
+            "content": "Copyright \u00a9 All rights reserved."
+          }
+        },
+        {
+          "tag": "meta",
+          "attributes": { "name": "referrer", "content": "unsafe-url" }
+        },
+        {
+          "tag": "meta",
+          "attributes": { "property": "og:site_name", "content": "Canvas demo" }
+        },
+        {
+          "tag": "meta",
+          "attributes": { "property": "og:type", "content": "website" }
+        },
+        {
+          "tag": "meta",
+          "attributes": {
+            "property": "og:url",
+            "content": "http://127.0.0.1:8890/jsonapi/canvas_page/canvas_page/bb5bbbb1-4a16-4b86-bbea-b215ab8096cf"
+          }
+        },
+        {
+          "tag": "meta",
+          "attributes": { "property": "og:title", "content": "Home" }
+        },
+        {
+          "tag": "meta",
+          "attributes": {
+            "name": "twitter:card",
+            "content": "summary_large_image"
+          }
+        },
+        {
+          "tag": "meta",
+          "attributes": { "name": "twitter:title", "content": "Home" }
+        }
+      ]
+    },
+    "relationships": {
+      "revision_user": {
+        "data": {
+          "type": "user--user",
+          "id": "21b83446-803e-47ee-b6bb-ae607a2cf178",
+          "meta": { "target_uuid": null, "drupal_internal__target_id": 1 }
+        },
+        "links": {
+          "related": {
+            "href": "http://127.0.0.1:8890/jsonapi/canvas_page/canvas_page/bb5bbbb1-4a16-4b86-bbea-b215ab8096cf/revision_user?resourceVersion=id%3A1"
+          },
+          "self": {
+            "href": "http://127.0.0.1:8890/jsonapi/canvas_page/canvas_page/bb5bbbb1-4a16-4b86-bbea-b215ab8096cf/relationships/revision_user?resourceVersion=id%3A1"
+          }
+        }
+      },
+      "owner": {
+        "data": {
+          "type": "user--user",
+          "id": "21b83446-803e-47ee-b6bb-ae607a2cf178",
+          "meta": { "target_uuid": null, "drupal_internal__target_id": 1 }
+        },
+        "links": {
+          "related": {
+            "href": "http://127.0.0.1:8890/jsonapi/canvas_page/canvas_page/bb5bbbb1-4a16-4b86-bbea-b215ab8096cf/owner?resourceVersion=id%3A1"
+          },
+          "self": {
+            "href": "http://127.0.0.1:8890/jsonapi/canvas_page/canvas_page/bb5bbbb1-4a16-4b86-bbea-b215ab8096cf/relationships/owner?resourceVersion=id%3A1"
+          }
+        }
+      },
+      "image": {
+        "data": null,
+        "links": {
+          "related": {
+            "href": "http://127.0.0.1:8890/jsonapi/canvas_page/canvas_page/bb5bbbb1-4a16-4b86-bbea-b215ab8096cf/image?resourceVersion=id%3A1"
+          },
+          "self": {
+            "href": "http://127.0.0.1:8890/jsonapi/canvas_page/canvas_page/bb5bbbb1-4a16-4b86-bbea-b215ab8096cf/relationships/image?resourceVersion=id%3A1"
+          }
+        }
+      }
+    }
+  },
+  "included": [
+    {
+      "type": "user--user",
+      "id": "21b83446-803e-47ee-b6bb-ae607a2cf178",
+      "links": {
+        "self": {
+          "href": "http://127.0.0.1:8890/jsonapi/user/user/21b83446-803e-47ee-b6bb-ae607a2cf178"
+        }
+      },
+      "attributes": { "display_name": "admin" }
+    }
+  ],
+  "links": {
+    "self": {
+      "href": "http://127.0.0.1:8890/jsonapi/canvas_page/canvas_page/bb5bbbb1-4a16-4b86-bbea-b215ab8096cf?include=image%2Cowner"
+    }
+  }
+}

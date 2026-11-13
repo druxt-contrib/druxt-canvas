@@ -41,5 +41,6 @@
     "setuptools",
     "trixie",
     "webp"
-  ]
+  ],
+  "ignoreRegExpList": ["\\\\u[0-9A-Fa-f]{4}"]
 }

@@ -1,0 +1,186 @@
+{
+  "jsonapi": {
+    "version": "1.1",
+    "meta": {
+      "links": { "self": { "href": "https://jsonapi.org/format/1.1/" } }
+    }
+  },
+  "data": {
+    "type": "canvas_page--canvas_page",
+    "id": "246b05e4-ecd9-45d5-ad49-65d757a1e3ea",
+    "links": {
+      "self": {
+        "href": "http://127.0.0.1:8890/jsonapi/canvas_page/canvas_page/246b05e4-ecd9-45d5-ad49-65d757a1e3ea?resourceVersion=id%3A3"
+      },
+      "working-copy": {
+        "href": "http://127.0.0.1:8890/jsonapi/canvas_page/canvas_page/246b05e4-ecd9-45d5-ad49-65d757a1e3ea?resourceVersion=rel%3Aworking-copy"
+      }
+    },
+    "attributes": {
+      "title": "Canvas external components",
+      "components": [
+        {
+          "parent_uuid": null,
+          "slot": null,
+          "uuid": "2cb6b918-7bfa-4679-96db-534cf57e3c3c",
+          "component_id": "sdc.mercury.heading",
+          "component_version": "9ba4baa1476e5856",
+          "inputs": "{\u0022heading_text\u0022:\u0022App-owned components\u0022,\u0022level\u0022:1,\u0022text_size\u0022:\u0022heading-responsive-7xl\u0022,\u0022text_color\u0022:\u0022default\u0022,\u0022align\u0022:\u0022left\u0022}",
+          "label": null,
+          "inputs_resolved": {
+            "heading_text": "App-owned components",
+            "level": 1,
+            "text_size": "heading-responsive-7xl",
+            "text_color": "default",
+            "align": "left"
+          }
+        },
+        {
+          "parent_uuid": null,
+          "slot": null,
+          "uuid": "f0033f02-9564-4770-ac5a-730f063725ca",
+          "component_id": "js.druxt_card",
+          "component_version": "09ad2d2eeff8cd87",
+          "inputs": "{\u0022title\u0022:\u0022A Druxt card\u0022,\u0022body\u0022:\u0022Props arrive as data.\u0022}",
+          "label": null,
+          "inputs_resolved": {
+            "title": "A Druxt card",
+            "body": "Props arrive as data."
+          }
+        },
+        {
+          "parent_uuid": "f0033f02-9564-4770-ac5a-730f063725ca",
+          "slot": "content",
+          "uuid": "20c58295-f4ff-40a5-a214-26bea41c2502",
+          "component_id": "js.druxt_menu",
+          "component_version": "4dcdabd14b685df2",
+          "inputs": "{\u0022menu\u0022:\u0022main\u0022}",
+          "label": null,
+          "inputs_resolved": { "menu": "main" }
+        },
+        {
+          "parent_uuid": null,
+          "slot": null,
+          "uuid": "43309d10-7537-45da-ae9d-dff446e7a56f",
+          "component_id": "js.druxt_view",
+          "component_version": "8d9c44d5fcbf9f6b",
+          "inputs": "{\u0022view_id\u0022:\u0022recent_pages\u0022,\u0022display_id\u0022:\u0022block_recent_pages\u0022}",
+          "label": null,
+          "inputs_resolved": {
+            "view_id": "recent_pages",
+            "display_id": "block_recent_pages"
+          }
+        },
+        {
+          "parent_uuid": null,
+          "slot": null,
+          "uuid": "7a65a925-5f11-42a8-a12f-f48fa33846d8",
+          "component_id": "js.druxt_entity",
+          "component_version": "7621ffae9170b297",
+          "inputs": "{\u0022entity_type\u0022:\u0022node\u0022,\u0022bundle\u0022:\u0022note\u0022,\u0022uuid\u0022:\u0022f9ec84ce-947b-40d3-ba64-ec5c4bac4f9b\u0022,\u0022view_mode\u0022:\u0022teaser\u0022}",
+          "label": null,
+          "inputs_resolved": {
+            "entity_type": "node",
+            "bundle": "note",
+            "uuid": "f9ec84ce-947b-40d3-ba64-ec5c4bac4f9b",
+            "view_mode": "teaser"
+          }
+        }
+      ],
+      "path": { "alias": "/demo-external", "pid": 9, "langcode": "en" },
+      "metatag": [
+        {
+          "tag": "meta",
+          "attributes": {
+            "name": "title",
+            "content": "Canvas external components | Canvas demo"
+          }
+        },
+        {
+          "tag": "meta",
+          "attributes": {
+            "name": "description",
+            "content": "Druxt components placed in Canvas."
+          }
+        },
+        {
+          "tag": "link",
+          "attributes": { "rel": "canonical", "href": "/demo-external" }
+        },
+        {
+          "tag": "link",
+          "attributes": {
+            "rel": "shortlink",
+            "href": "http://127.0.0.1:8890/jsonapi/canvas_page/canvas_page/246b05e4-ecd9-45d5-ad49-65d757a1e3ea"
+          }
+        },
+        {
+          "tag": "meta",
+          "attributes": {
+            "name": "rights",
+            "content": "Copyright \u00a9 All rights reserved."
+          }
+        },
+        {
+          "tag": "meta",
+          "attributes": { "name": "referrer", "content": "unsafe-url" }
+        },
+        {
+          "tag": "meta",
+          "attributes": { "property": "og:site_name", "content": "Canvas demo" }
+        },
+        {
+          "tag": "meta",
+          "attributes": { "property": "og:type", "content": "website" }
+        },
+        {
+          "tag": "meta",
+          "attributes": {
+            "property": "og:url",
+            "content": "http://127.0.0.1:8890/jsonapi/canvas_page/canvas_page/246b05e4-ecd9-45d5-ad49-65d757a1e3ea"
+          }
+        },
+        {
+          "tag": "meta",
+          "attributes": {
+            "property": "og:title",
+            "content": "Canvas external components"
+          }
+        },
+        {
+          "tag": "meta",
+          "attributes": {
+            "property": "og:description",
+            "content": "Druxt components placed in Canvas."
+          }
+        },
+        {
+          "tag": "meta",
+          "attributes": {
+            "name": "twitter:card",
+            "content": "summary_large_image"
+          }
+        },
+        {
+          "tag": "meta",
+          "attributes": {
+            "name": "twitter:title",
+            "content": "Canvas external components"
+          }
+        },
+        {
+          "tag": "meta",
+          "attributes": {
+            "name": "twitter:description",
+            "content": "Druxt components placed in Canvas."
+          }
+        }
+      ]
+    }
+  },
+  "links": {
+    "self": {
+      "href": "http://127.0.0.1:8890/jsonapi/canvas_page/canvas_page/246b05e4-ecd9-45d5-ad49-65d757a1e3ea?fields%5Bcanvas_page--canvas_page%5D=title%2Ccomponents%2Cmetatag%2Cpath"
+    }
+  }
+}

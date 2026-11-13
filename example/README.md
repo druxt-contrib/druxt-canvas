@@ -1,8 +1,8 @@
 # Example application
 
-A Nuxt application that loads the module and renders Canvas pages through
-wrapper components a site would write, so a change to the module is seen
-running in a real Nuxt build.
+A Nuxt application that loads the module and renders Canvas pages through the
+wrapper components a site would write, so a change to the module shows here as
+a site would see it.
 
 ## Run it
 
@@ -20,8 +20,8 @@ menu block and a views block. `/external` renders a page of code components.
 
 Both pages are JSON:API responses saved from a Drupal CMS 2.2.9 site with
 Canvas 1.12.0, kept in `test/fixtures`, and handed to `DruxtCanvas` as its
-`value`. Everything after the request is the module at work: the component
-tree, the wrapper components, the block mappings and the page head.
+`value`. Everything after the request is the module at work, from building the
+component tree to setting the page head.
 
 The wrapper components are in `nuxt/components`. The menu and views blocks have
 none, and the example installs neither druxt-menu nor druxt-views, so they
@@ -63,7 +63,7 @@ what the Drupal site needs.
 | ---------------------- | ---------------------------------------------------------------- |
 | `nuxt/`                | The Nuxt 2 application, with the module as `file:../..`          |
 | `nuxt/components/`     | Wrapper components for Mercury's components and a code component |
-| `nuxt/pages/`          | The two saved Canvas pages                                       |
+| `nuxt/pages/`          | Saved Canvas pages, at `/` and `/external`                       |
 | `nuxt/package.json`    | Pins `consola` 2: webpack 4 cannot parse the version 3 build     |
 | `drupal/composer.json` | Drupal 11 with `drupal/druxt`; the lock is committed             |
 | `drupal/.devtools/`    | Docker-free provisioning: assemble, provision, start, stop, info |

@@ -37,8 +37,8 @@ naming the wrapper components it would accept.
 
 `npm run test:e2e` runs Playwright against the example. With no
 `PLAYWRIGHT_BASE_URL` it generates the example (`npm run example:generate`)
-and serves `example/nuxt/dist` with `npm run serve`, as the pipelines do,
-because that is what a visitor gets. Some checks hold only there: under
+and serves `example/nuxt/dist` with `npm run serve`, as the pipelines do, so
+the tests see the production build. Some checks hold only there: under
 `example:dev` the uninstalled blocks show Druxt's debug message.
 
 Generating reads the backend, so start it first (`npm run example:setup`).

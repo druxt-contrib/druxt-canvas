@@ -274,17 +274,46 @@ describe('DruxtCanvas', () => {
     })
   })
 
-  test('renders an empty page when the store answers with nothing', async () => {
-    const store = createStore()
-    store.dispatch.mockResolvedValue(undefined)
-    const wrapper = await mountAll(DruxtCanvas, {
-      localVue: createVue({ components, store }),
-      propsData: { uuid },
-    })
+  // The store answers a failed request without rejecting, with an empty
+  // object or with an `error`.
+  test.each([
+    [
+      'nothing',
+      undefined,
+      `The Canvas page ${uuid} could not be loaded.`,
+      undefined,
+    ],
+    [
+      'an empty object',
+      {},
+      `The Canvas page ${uuid} could not be loaded.`,
+      undefined,
+    ],
+    [
+      'an error',
+      { error: { statusCode: 404, message: 'Not Found' } },
+      'Not Found',
+      404,
+    ],
+  ])(
+    'fails the fetch when the store answers with %s',
+    async (_, answer, message, statusCode) => {
+      const store = createStore()
+      store.dispatch.mockResolvedValue(answer)
+      const wrapper = mount(DruxtCanvas, {
+        localVue: createVue({ components, store }),
+        propsData: { uuid },
+      })
 
-    expect(wrapper.vm.entity).toStrictEqual({})
-    expect(wrapper.vm.tree).toStrictEqual([])
-  })
+      const error = await wrapper.vm.$options.druxt.fetchData
+        .call(wrapper.vm)
+        .catch((e) => e)
+      expect(error).toBeInstanceOf(Error)
+      expect(error.message).toBe(message)
+      expect(error.statusCode).toBe(statusCode)
+      expect(wrapper.vm.entity).toStrictEqual({})
+    }
+  )
 
   describe('a response that arrives late', () => {
     // A store whose first page answers only when the test lets it.

@@ -15,6 +15,10 @@ npm run example:install  # the example's dependencies
 npm run example:dev      # http://localhost:3000
 ```
 
+`/` and `/external` need nothing else. `/canvas-demo` and `/backend` read the
+example backend, so set it up first with `npm run example:setup`, as
+[The backend](#the-backend) describes.
+
 `/` renders a Canvas page of Mercury components, a section with two slots, a
 menu block and a views block. `/external` renders a page of code components.
 
@@ -48,10 +52,12 @@ Generating reads the backend, so start it first (`npm run example:setup`).
 `drupal/` is a Drupal 11 site on SQLite with the Druxt module and Canvas, which
 `npm run example:setup` provisions without Docker, with PHP 8.3 or later and
 Composer on the host. Its view displays fit on one JSON:API page, which keeps
-it clear of the Canvas defect the main README describes.
+it clear of the Canvas 1.12.0 defect that
+[Drupal setup](../docs/drupal-setup.md#canvas-1120-and-the-druxt-build)
+describes.
 
 The `drupal/recipes/druxt_canvas_example` recipe sets the site up: the Druxt
-module and its permission, Canvas, and one Canvas page, as default content. The
+module and its permission for anonymous visitors, Canvas, and one Canvas page, as default content. The
 core standard profile has no single-directory component with text inputs, so
 the page is built from a code component, in the recipe's `config/`, rendered by
 the example's `DruxtCanvasJsDruxtCard` wrapper.
@@ -59,10 +65,12 @@ the example's `DruxtCanvasJsDruxtCard` wrapper.
 `cd example/drupal && ddev start && ddev drupal-install` builds the same site
 on DDEV's MySQL.
 
-To run the example against your own Canvas site, set `DRUXT_BASE_URL`, add
-`druxt-entity` and `druxt-router/nuxt` before `@druxt-contrib/canvas` in
-`nuxt/nuxt.config.js`, and open a Canvas page's path. The main README lists
-what the Drupal site needs.
+To run the example against your own Canvas site, set `DRUXT_BASE_URL` and open
+a Canvas page's path. [Drupal setup](../docs/drupal-setup.md) lists what the
+Drupal site needs.
+
+`drupal/` is a Drupal site, so it is licensed GPL-2.0-or-later, like Drupal,
+not MIT like the rest of the repository. See `drupal/LICENSE.txt`.
 
 ## What is in here
 

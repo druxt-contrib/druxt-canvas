@@ -27,7 +27,7 @@ const baseUrl =
 export default {
   // druxt-entity and druxt-router route a Canvas page's path to it:
   // /canvas-demo is a page on the backend, with no page here.
-  buildModules: [
+  modules: [
     'druxt',
     'druxt-entity',
     'druxt-router/nuxt',

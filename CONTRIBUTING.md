@@ -1,7 +1,7 @@
 # Contributing
 
-Thanks for helping. DruxtCanvas is set up from the Druxt module template, so
-what follows holds for every Druxt module.
+Thanks for helping. DruxtCanvas follows the Druxt repository standard, so the
+checks here are the same ones every Druxt module runs.
 
 ## Getting set up
 
@@ -43,6 +43,14 @@ This matters more than it looks: these repositories squash-merge, so the pull
 request or merge request **title** becomes the commit subject. A prose title
 passes the commit check and then breaks the next push to the target branch for
 everyone. Title your pull request the same way you would title a commit.
+
+## Changesets
+
+A change that a user of the package would notice needs a changeset. Run
+`npm run changeset`, pick the bump, and write one or two plain sentences about
+the change. Commit the file it writes in `.changeset/` with your change. The
+release turns the changesets into `CHANGELOG.md`, so do not edit that file by
+hand.
 
 ## Coverage
 

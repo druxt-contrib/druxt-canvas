@@ -1,7 +1,7 @@
 # Agent instructions
 
-DruxtCanvas renders Drupal Canvas pages in a Druxt site. The repository is
-set up from the Druxt module template, so its tooling and rules are the same
+DruxtCanvas renders Drupal Canvas pages in a Druxt site. The repository
+follows the Druxt repository standard, so its tooling and rules are the same
 as every other Druxt module's.
 
 ## Rules
@@ -15,6 +15,11 @@ as every other Druxt module's.
 - **Conventional Commits**, and the same for pull request and merge request
   titles. These repositories squash-merge, so the title becomes the commit
   subject, and a prose title breaks the next push to the target branch.
+- **The default branch is `0.x`.** There is no `main` or `develop`. A release
+  line is a `*.x` branch, and the pipelines run on pushes to those.
+- **Releases go through Changesets.** A change that a user of the package
+  would notice carries a changeset (`npm run changeset`). Do not write
+  `CHANGELOG.md` by hand: the release writes it from `.changeset/`.
 - **The coverage floor in `jest.config.js` goes up, never down.** If a change
   drops coverage, the change needs a test.
 - **No AI tool is credited.** No co-author trailer naming an assistant, no
@@ -44,6 +49,8 @@ and OpenCode. Where a tool has no MCP support, use
 | `src/`             | The module. `index.js` is the Nuxt module, `components/` its components  |
 | `test/`            | Unit tests. `test/e2e/` is Playwright, and is not run by `npm test`      |
 | `example/`         | A Nuxt application rendering saved Canvas pages, and a Drupal 11 backend |
+| `docs/`            | User documentation beyond the README, such as Drupal setup and theming   |
+| `.changeset/`      | Pending release notes, written with `npm run changeset`                  |
 | `scripts/`         | Repository tooling, excluded from the package                            |
 | `.githooks/`       | Committed hooks, enabled by `npm install`                                |
 | `.gitlab/scripts/` | Content checks and merge-request automation, shared by Druxt modules     |

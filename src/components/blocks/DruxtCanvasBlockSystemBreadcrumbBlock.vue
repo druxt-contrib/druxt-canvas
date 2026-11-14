@@ -33,7 +33,8 @@ export default {
     if (!hasComponent(this, 'DruxtBreadcrumb')) {
       return renderDebug(
         h,
-        'The Canvas breadcrumb block needs druxt-breadcrumb.'
+        'The Canvas breadcrumb block needs druxt-breadcrumb.',
+        this.canvas.uuid
       )
     }
 

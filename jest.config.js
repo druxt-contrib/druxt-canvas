@@ -12,14 +12,10 @@ module.exports = {
   // in the compiled output that no test can reach, and vue-jest 3 maps each
   // .vue file's compiled branches onto its first lines. Measured, not guessed: run
   // `npm test` and read the table before changing these.
-  //
-  // 75, from 77: dropping the fallback to Canvas's stored inputs, whose markup
-  // is unfiltered, removed branches the tests covered, so the unreachable ones
-  // above are a larger share. No reachable branch lost its test.
   coverageThreshold: {
     global: {
       statements: 100,
-      branches: 75,
+      branches: 77,
       functions: 100,
       lines: 100,
     },

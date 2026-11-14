@@ -53,12 +53,17 @@ export default {
 
   render(h) {
     if (!hasComponent(this, 'DruxtView')) {
-      return renderDebug(h, 'The Canvas views block needs druxt-views.')
+      return renderDebug(
+        h,
+        'The Canvas views block needs druxt-views.',
+        this.canvas.uuid
+      )
     }
     if (!this.ids) {
       return renderDebug(
         h,
-        `The Canvas component id "${this.canvas.componentId}" names no view and display.`
+        `The Canvas component id "${this.canvas.componentId}" names no view and display.`,
+        this.canvas.uuid
       )
     }
 

@@ -319,7 +319,7 @@ npm test               # unit tests, coverage floor enforced
 npm run lint           # every linter except prose
 npm run lint:prose     # Vale, after `npm run lint:prose:install` once
 npm run example:dev    # the example on http://localhost:3000
-npm run test:e2e       # Playwright against the example
+npm run test:e2e       # Playwright against the generated example, backend up
 ```
 
 `.mise.toml` pins the toolchain, Node 16 for Nuxt 2, and defines the same

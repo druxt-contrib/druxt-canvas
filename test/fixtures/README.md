@@ -11,5 +11,4 @@ JSON:API and Decoupled Router responses from a Drupal CMS 2.2.9 site (core 11.4.
 | `canvas-pages-collection.json`    | `/jsonapi/canvas_page/canvas_page`                                                                                                    |
 | `router-front.json`               | `/router/translate-path?path=/`                                                                                                       |
 | `router-demo-external.json`       | `/router/translate-path?path=/demo-external`                                                                                          |
-| `router-page-alias-redirect.json` | `/router/translate-path?path=/page/2`                                                                                                 |
 | `view-display-canvas-page.json`   | `/jsonapi/entity_view_display/entity_view_display?filter[targetEntityType]=canvas_page`, empty, as Canvas pages have no view displays |

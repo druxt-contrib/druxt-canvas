@@ -57,13 +57,15 @@ export default {
     if (!hasComponent(this, 'DruxtMenu')) {
       return renderDebug(
         h,
-        `The Canvas menu block "${this.name}" needs druxt-menu.`
+        `The Canvas menu block "${this.name}" needs druxt-menu.`,
+        this.canvas.uuid
       )
     }
     if (this.level > 1) {
       return renderDebug(
         h,
-        `The Canvas menu block "${this.name}" starts at level ${this.level}, which DruxtMenu cannot render. Create a wrapper component for it.`
+        `The Canvas menu block "${this.name}" starts at level ${this.level}, which DruxtMenu cannot render. Create a wrapper component for it.`,
+        this.canvas.uuid
       )
     }
 

@@ -223,6 +223,33 @@ describe('DruxtCanvas', () => {
     warn.mockRestore()
   })
 
+  test('fetches the page in its language', async () => {
+    const store = createStore({ resources: { [uuid]: page2 } })
+    await mountAll(DruxtCanvas, {
+      localVue: createVue({ components, store }),
+      propsData: { uuid, langcode: 'es' },
+    })
+    expect(store.dispatch).toHaveBeenCalledWith('druxt/getResource', {
+      id: uuid,
+      prefix: 'es',
+      type: 'canvas_page--canvas_page',
+    })
+  })
+
+  test("fetches the page in the route's language without a langcode", async () => {
+    const store = createStore({ resources: { [uuid]: page2 } })
+    await mountAll(DruxtCanvas, {
+      localVue: createVue({ components, store }),
+      mocks: { $route: { meta: { langcode: 'es' }, path: '/es/demo' } },
+      propsData: { uuid },
+    })
+    expect(store.dispatch).toHaveBeenCalledWith('druxt/getResource', {
+      id: uuid,
+      prefix: 'es',
+      type: 'canvas_page--canvas_page',
+    })
+  })
+
   test('refetches when the uuid changes', async () => {
     const page3 = fixture('canvas-page-3')
     const store = createStore({
@@ -386,6 +413,14 @@ describe('DruxtCanvas', () => {
         propsData: { value: page2.data, metatags: false },
       })
       expect(head(wrapper)).toStrictEqual({})
+    })
+
+    test('is not set without DruxtRouter in the store', () => {
+      const wrapper = mount(DruxtCanvas, {
+        localVue: createVue({ store: { state: {} } }),
+        propsData: { value: page2.data },
+      })
+      expect(wrapper.vm.setsHead).toBe(false)
     })
 
     test('is not set before the page has loaded', () => {

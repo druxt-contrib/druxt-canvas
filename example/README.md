@@ -36,12 +36,12 @@ naming the wrapper components it would accept.
 ## Tests against it
 
 `npm run test:e2e` runs Playwright against the example. With no
-`PLAYWRIGHT_BASE_URL` it starts the dev server itself. The pipelines generate
-the example (`npm run example:generate`) and serve `example/nuxt/dist` with
-`npm run serve` instead, which is what a visitor gets.
+`PLAYWRIGHT_BASE_URL` it generates the example (`npm run example:generate`)
+and serves `example/nuxt/dist` with `npm run serve`, as the pipelines do,
+because that is what a visitor gets. Some checks hold only there: under
+`example:dev` the uninstalled blocks show Druxt's debug message.
 
-The checks of the backend's Canvas page, by its path and by its uuid, need the
-backend running when the example is generated.
+Generating reads the backend, so start it first (`npm run example:setup`).
 
 ## The backend
 

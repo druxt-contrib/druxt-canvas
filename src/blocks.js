@@ -40,10 +40,17 @@ export const renderBlock = (h, { label, labelDisplay, content, uuid }) =>
  * DruxtDebug shows the message in development only, and an empty element in
  * production, as every Druxt module does.
  *
+ * It carries the same `data-canvas-uuid` marker as a rendered block, so every
+ * component instance on the page can be found by its uuid.
+ *
  * @param {Function} h - The Vue createElement function.
  * @param {string} summary - What is wrong.
+ * @param {string} [uuid] - The component instance uuid.
  *
  * @returns {object} The DruxtDebug VNode.
  */
-export const renderDebug = (h, summary) =>
-  h('DruxtDebug', { props: { summary } })
+export const renderDebug = (h, summary, uuid) =>
+  h('DruxtDebug', {
+    attrs: uuid ? { 'data-canvas-uuid': uuid } : undefined,
+    props: { summary },
+  })

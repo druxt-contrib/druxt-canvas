@@ -256,8 +256,9 @@ export default {
             props: { item: node, langcode: this.langcode },
           })
       }
+      const roots = { ...slots }
       slots.default = (attrs) =>
-        this.tree.map((node) => slots[node.uuid](attrs))
+        this.tree.map((node) => roots[node.uuid](attrs))
       return slots
     },
   },

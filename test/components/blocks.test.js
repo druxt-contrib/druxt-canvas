@@ -4,6 +4,7 @@ import DruxtCanvasBlockSystemBreadcrumbBlock from '../../src/components/blocks/D
 import DruxtCanvasBlockSystemMenuBlock from '../../src/components/blocks/DruxtCanvasBlockSystemMenuBlock.vue'
 import DruxtCanvasBlockViewsBlock from '../../src/components/blocks/DruxtCanvasBlockViewsBlock.vue'
 import DruxtCanvasComponent from '../../src/components/DruxtCanvasComponent.vue'
+import { hasComponent } from '../../src/blocks'
 import { buildCanvasTree } from '../../src/tree'
 import { createVue, fixture, mountAll } from '../helpers'
 import { DruxtBreadcrumb, DruxtMenu, DruxtView } from '../wrappers'
@@ -16,6 +17,11 @@ const props = (wrapper, selector) =>
   JSON.parse(wrapper.find(selector).attributes('data-props'))
 
 describe('Canvas block mappings', () => {
+  test('hasComponent answers false for a component with no options', () => {
+    expect(hasComponent({}, 'DruxtMenu')).toBe(false)
+    expect(hasComponent({ $options: {} }, 'DruxtMenu')).toBe(false)
+  })
+
   describe('menu block', () => {
     const item = find('block.system_menu_block.main')
 
@@ -109,13 +115,15 @@ describe('Canvas block mappings', () => {
       expect(wrapper.find('details > summary').text()).toContain(
         'starts at level 2'
       )
+      // Marked like a rendered block, so the instance can still be found.
+      expect(wrapper.attributes('data-canvas-uuid')).toBe('u')
 
       wrapper = mount(DruxtCanvasBlockSystemMenuBlock, {
         localVue: createVue({ components: { DruxtMenu }, isDev: false }),
         propsData: { canvas, level: 2 },
       })
       // DruxtDebug renders an empty element in production.
-      expect(wrapper.html()).toBe('<div></div>')
+      expect(wrapper.html()).toBe('<div data-canvas-uuid="u"></div>')
     })
 
     test('without druxt-menu, says so in development', () => {

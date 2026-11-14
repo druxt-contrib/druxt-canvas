@@ -58,7 +58,7 @@ npm run lint         # every linter except prose
 npm run lint:prose   # Vale, after `npm run lint:prose:install`
 npm run example:setup  # Drupal 11 backend on SQLite, then the example's dependencies
 npm run example:dev    # the example on http://localhost:3000
-npm run test:e2e       # Playwright against the example
+npm run test:e2e       # Playwright against the generated example, backend up
 ```
 
 ## Toolchain

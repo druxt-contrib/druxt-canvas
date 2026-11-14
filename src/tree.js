@@ -19,28 +19,18 @@ export const camelCase = (key) =>
 /**
  * Reads the input values of one component instance.
  *
- * `inputs_resolved` holds the values Canvas resolved for the instance. When it
- * is absent, `inputs` is read instead: JSON:API sends it as a JSON string.
+ * `inputs_resolved` holds the values Canvas resolved for the instance, with
+ * markup passed through the component's text format. The stored `inputs` are
+ * not read: their markup has not been filtered, and a wrapper may render it.
  *
  * @param {CanvasItem} item - One item of the `components` field.
  *
  * @returns {object} The input values, keyed by their Canvas names.
  */
-export const getInputs = (item) => {
-  if (item.inputs_resolved && typeof item.inputs_resolved === 'object')
-    return item.inputs_resolved
-
-  if (typeof item.inputs === 'string') {
-    try {
-      const inputs = JSON.parse(item.inputs)
-      return inputs && typeof inputs === 'object' ? inputs : {}
-    } catch (err) {
-      return {}
-    }
-  }
-
-  return item.inputs && typeof item.inputs === 'object' ? item.inputs : {}
-}
+export const getInputs = (item) =>
+  item.inputs_resolved && typeof item.inputs_resolved === 'object'
+    ? item.inputs_resolved
+    : {}
 
 /**
  * Builds the props of one component instance: its inputs with camelCase keys.
@@ -137,7 +127,17 @@ export const buildCanvasTree = (items, { warn } = {}) => {
       continue
     }
 
-    ;(parent.slots[item.slot] = parent.slots[item.slot] || []).push(node)
+    // An own property, so a slot named `constructor`, `toString` or
+    // `__proto__` is a slot like any other, not what Object provides.
+    if (!Object.prototype.hasOwnProperty.call(parent.slots, item.slot)) {
+      Object.defineProperty(parent.slots, item.slot, {
+        configurable: true,
+        enumerable: true,
+        value: [],
+        writable: true,
+      })
+    }
+    parent.slots[item.slot].push(node)
     placed.push(item)
   }
 

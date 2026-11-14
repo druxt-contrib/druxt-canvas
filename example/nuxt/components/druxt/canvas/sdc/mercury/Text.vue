@@ -1,5 +1,6 @@
 <template>
-  <!-- Canvas has filtered the text through its text format. -->
+  <!-- The resolved input: Canvas has passed it through the canvas_html_block
+       text format. -->
   <div class="text" v-html="text" />
 </template>
 

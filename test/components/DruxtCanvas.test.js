@@ -4,6 +4,14 @@ import DruxtCanvas from '../../src/components/DruxtCanvas.vue'
 import DruxtCanvasBlockSystemMenuBlock from '../../src/components/blocks/DruxtCanvasBlockSystemMenuBlock.vue'
 import DruxtCanvasBlockViewsBlock from '../../src/components/blocks/DruxtCanvasBlockViewsBlock.vue'
 import { createStore, createVue, fixture, mountAll } from '../helpers'
+
+// Lets every pending promise and render settle.
+const flush = async (wrapper) => {
+  for (let i = 0; i < 6; i++) {
+    await new Promise((resolve) => setTimeout(resolve))
+    await wrapper.vm.$nextTick()
+  }
+}
 import {
   DruxtCanvasSdcMercuryCard,
   DruxtCanvasSdcMercuryHeading,
@@ -236,6 +244,89 @@ describe('DruxtCanvas', () => {
       id: page3.data.id,
       prefix: undefined,
       type: 'canvas_page--canvas_page_other',
+    })
+  })
+
+  test('renders an empty page when the store answers with nothing', async () => {
+    const store = createStore()
+    store.dispatch.mockResolvedValue(undefined)
+    const wrapper = await mountAll(DruxtCanvas, {
+      localVue: createVue({ components, store }),
+      propsData: { uuid },
+    })
+
+    expect(wrapper.vm.entity).toStrictEqual({})
+    expect(wrapper.vm.tree).toStrictEqual([])
+  })
+
+  describe('a response that arrives late', () => {
+    // A store whose first page answers only when the test lets it.
+    const slowStore = (resources) => {
+      const store = createStore({ resources })
+      const answer = store.dispatch.getMockImplementation()
+      let release
+      const held = new Promise((resolve) => {
+        release = resolve
+      })
+      store.dispatch.mockImplementation(async (action, payload) => {
+        if (action === 'druxt/getResource' && payload.id === uuid) await held
+        return answer(action, payload)
+      })
+      return { store, release }
+    }
+
+    test('is dropped when the uuid has changed since', async () => {
+      const page3 = fixture('canvas-page-3')
+      const { store, release } = slowStore({
+        [uuid]: page2,
+        [page3.data.id]: page3,
+      })
+      const wrapper = mount(DruxtCanvas, {
+        localVue: createVue({ components, store }),
+        propsData: { uuid },
+      })
+
+      await wrapper.setProps({ uuid: page3.data.id })
+      await flush(wrapper)
+      release()
+      await flush(wrapper)
+
+      expect(wrapper.vm.entity.id).toBe(page3.data.id)
+    })
+
+    test('is dropped when the type has changed since', async () => {
+      const { store, release } = slowStore({ [uuid]: page2 })
+      const wrapper = mount(DruxtCanvas, {
+        localVue: createVue({ components, store }),
+        propsData: { uuid },
+      })
+
+      await wrapper.setProps({ type: 'canvas_page--canvas_page_other' })
+      await flush(wrapper)
+      release()
+      await flush(wrapper)
+
+      const types = store.dispatch.mock.calls
+        .filter(([action]) => action === 'druxt/getResource')
+        .map(([, payload]) => payload.type)
+      expect(types).toContain('canvas_page--canvas_page_other')
+      expect(wrapper.vm.entity.id).toBe(uuid)
+    })
+
+    test('is dropped when a resource has been given since', async () => {
+      const page3 = fixture('canvas-page-3')
+      const { store, release } = slowStore({ [uuid]: page2 })
+      const wrapper = mount(DruxtCanvas, {
+        localVue: createVue({ components, store }),
+        propsData: { uuid },
+      })
+
+      await wrapper.setProps({ value: page3.data })
+      await flush(wrapper)
+      release()
+      await flush(wrapper)
+
+      expect(wrapper.vm.entity.id).toBe(page3.data.id)
     })
   })
 

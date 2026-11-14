@@ -63,6 +63,20 @@ else:
 <DruxtCanvas uuid="efff9394-e546-4d64-98e8-295c92367d52" />
 ```
 
+In a page that has a `fetch()` of its own, such as a front page in
+`pages/index.vue`, wrap it in an element. Nuxt 2 keeps each component's fetch
+key on its root element, and two components that share one root swap their
+data on hydration: the page renders on the server, then empties in the
+browser.
+
+```vue
+<template>
+  <div>
+    <DruxtCanvas uuid="efff9394-e546-4d64-98e8-295c92367d52" />
+  </div>
+</template>
+```
+
 ### Development releases
 
 A change merged to `0.x` with a changeset is published under the `dev` tag:
@@ -169,6 +183,11 @@ The instance's inputs are the wrapper's props, in camelCase (`heading_text` is
 `label`, `inputs` and `slots`. Declare the inputs you use as props.
 `DruxtCanvasComponentMixin` keeps the rest out of the markup.
 
+The inputs are the values Canvas resolved, from each item's `inputs_resolved`.
+Canvas passes an HTML input through its `canvas_html_block` text format first,
+so a wrapper may render it with `v-html`. The stored `inputs` are not read:
+their markup is unfiltered.
+
 Each Canvas slot is a Vue slot of the same name. The `default` slot is the
 component's default output.
 
@@ -272,6 +291,9 @@ This version renders published Canvas pages. It does not do:
   own pager.
 - **Per-component access.** Canvas applies a block's own access when it renders
   it, and JSON:API does not.
+- **Lists of objects as an input.** Canvas offers a list of strings (`type:
+array` with `items: string`), which arrives in the wrapper as an array prop,
+  and no list of objects. Use child components in a slot instead.
 
 ### Canvas 1.12.0 and the Druxt schema build
 

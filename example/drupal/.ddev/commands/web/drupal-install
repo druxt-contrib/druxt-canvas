@@ -8,10 +8,5 @@
 set -euo pipefail
 composer install
 drush -y site:install --site-name='druxt-canvas' standard
-drush -y recipe:apply /var/www/html/web/core/recipes/article_content_type
-drush -y recipe:apply /var/www/html/web/core/recipes/page_content_type
+drush -y recipe:apply /var/www/html/recipes/druxt_canvas_example
 drush -y cache:rebuild
-drush -y pm:enable druxt
-drush role:perm:add anonymous 'access druxt resources'
-drush -y pm:enable canvas
-drush php:script /var/www/html/.devtools/canvas-page.php

@@ -1,0 +1,22 @@
+name: 'Druxt Canvas example backend'
+description: 'Configures the backend the druxt-canvas example reads: the Druxt module with anonymous access to its resources, Canvas, a code component the example has a wrapper for, and one Canvas page at /canvas-demo.'
+type: 'Site'
+recipes:
+  # The standard profile no longer creates content types; they are recipes.
+  - core/recipes/article_content_type
+  - core/recipes/page_content_type
+install:
+  - druxt
+  - canvas
+# config/ holds the code component the page is built from. Its source is a
+# stub: Drupal never renders the page, the example does, through
+# nuxt/components/DruxtCanvasJsDruxtCard.vue.
+config:
+  actions:
+    # The example reads Druxt's resources as an anonymous visitor. A
+    # published Canvas page needs no permission of its own.
+    user.role.anonymous:
+      grantPermissions:
+        - 'access druxt resources'
+# The Canvas page itself is default content, in content/. Its alias is not
+# /canvas, where Canvas's own editor starts.

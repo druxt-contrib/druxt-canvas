@@ -67,6 +67,10 @@
     "test:visual:update": "playwright test --grep @visual --update-snapshots",
     "test:watch": "jest --watch"
   },
+  "peerDependencies": {
+    "druxt": "^0.25.1",
+    "vuex": "^3.6.2"
+  },
   "devDependencies": {
     "@babel/core": "7.20.2",
     "@babel/preset-env": "7.20.2",
@@ -103,9 +107,5 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "jest-junit": {
-    "outputDirectory": "reports/junit",
-    "outputName": "junit.xml"
   }
 }

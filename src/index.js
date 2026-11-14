@@ -57,12 +57,15 @@ const DruxtCanvasNuxtModule = function (moduleOptions = {}) {
   })
 
   // Leave out a block mapping whose Druxt module is not installed, so the
-  // block falls back to the site's wrappers, or to Druxt's debug message.
+  // block falls back to the site's wrappers, or to Druxt's debug message. Only
+  // this package's mappings: a site's component of the same name stays.
+  const own = join(__dirname, 'components')
   this.nuxt.hook('components:extend', (components) => {
     const names = new Set(components.map((component) => component.pascalName))
     for (let index = components.length - 1; index >= 0; index--) {
-      const needs = blockMappings[components[index].pascalName]
-      if (needs && !names.has(needs)) {
+      const { filePath, pascalName } = components[index]
+      const needs = blockMappings[pascalName]
+      if (needs && !names.has(needs) && String(filePath).startsWith(own)) {
         components.splice(index, 1)
       }
     }

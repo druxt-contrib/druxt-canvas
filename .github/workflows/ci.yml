@@ -101,6 +101,8 @@ jobs:
       # The coverage floor in jest.config.js is what fails here. Codecov below
       # adds the per-pull-request view on top and is not the gate.
       - run: npm test -- --reporters=default --reporters=jest-junit --runInBand
+        env:
+          JEST_JUNIT_OUTPUT_DIR: reports/junit
 
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02  # v4
         if: always()

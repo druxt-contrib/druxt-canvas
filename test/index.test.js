@@ -2,7 +2,11 @@ import { join } from 'path'
 
 import DruxtCanvasNuxtModule, * as exported from '../src'
 
-const component = (pascalName) => ({ pascalName })
+// A component of this package, from its components directory.
+const component = (pascalName) => ({
+  pascalName,
+  filePath: join(__dirname, '../src/components', `${pascalName}.vue`),
+})
 
 describe('DruxtCanvasNuxtModule', () => {
   let hooks
@@ -53,6 +57,17 @@ describe('DruxtCanvasNuxtModule', () => {
       'DruxtCanvasBlockSystemMenuBlock',
       'DruxtMenu',
     ])
+  })
+
+  test("keeps a site's own block wrapper whatever is installed", () => {
+    const site = {
+      pascalName: 'DruxtCanvasBlockSystemMenuBlock',
+      filePath: '/site/components/DruxtCanvasBlockSystemMenuBlock.vue',
+    }
+    const components = [site, component('DruxtCanvasBlockViewsBlock')]
+    hooks['components:extend'](components)
+
+    expect(components).toStrictEqual([site])
   })
 
   test('keeps every block mapping when every Druxt module is installed', () => {

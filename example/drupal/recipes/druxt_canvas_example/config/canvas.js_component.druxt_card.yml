@@ -1,0 +1,28 @@
+langcode: en
+status: true
+dependencies: {  }
+machineName: druxt_card
+name: 'Druxt card'
+required: {  }
+props:
+  title:
+    type: string
+    title: Title
+    examples:
+      - 'Card title'
+  body:
+    type: string
+    title: Body
+    examples:
+      - 'Card body'
+slots:
+  content:
+    title: Content
+js:
+  original: 'export default function DruxtCard() { return null }'
+  compiled: 'export default function DruxtCard() { return null }'
+css:
+  original: ''
+  compiled: ''
+dataDependencies: {  }
+

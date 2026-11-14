@@ -220,7 +220,7 @@ test:unit:
     - npm run build
     - section_end "build"
     - section_start "jest" "Running unit tests"
-    - npm test -- --reporters=default --reporters=jest-junit --runInBand
+    - JEST_JUNIT_OUTPUT_DIR=reports/junit npm test -- --reporters=default --reporters=jest-junit --runInBand
     - section_end "jest"
   artifacts:
     when: always

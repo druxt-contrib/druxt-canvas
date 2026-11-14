@@ -167,6 +167,37 @@ describe('Canvas block mappings', () => {
       })
     })
 
+    test('shows the block label when there is no views label', () => {
+      const wrapper = mount(DruxtCanvasBlockViewsBlock, {
+        localVue: createVue({ components: { DruxtView } }),
+        propsData: {
+          canvas: { componentId: 'block.views_block.content_recent-block_1' },
+          label: 'Recent',
+          labelDisplay: 'visible',
+        },
+      })
+      expect(wrapper.find('h2').text()).toBe('Recent')
+    })
+
+    test('shows no heading for a visible label that is empty', () => {
+      const wrapper = mount(DruxtCanvasBlockViewsBlock, {
+        localVue: createVue({ components: { DruxtView } }),
+        propsData: {
+          canvas: { componentId: 'block.views_block.content_recent-block_1' },
+          labelDisplay: 'visible',
+        },
+      })
+      expect(wrapper.find('h2').exists()).toBe(false)
+    })
+
+    test('says so when there is no component id', () => {
+      const wrapper = mount(DruxtCanvasBlockViewsBlock, {
+        localVue: createVue({ components: { DruxtView } }),
+        propsData: { canvas: {} },
+      })
+      expect(wrapper.text()).toContain('names no view and display')
+    })
+
     test('says so when the component id names no view', () => {
       const wrapper = mount(DruxtCanvasBlockViewsBlock, {
         localVue: createVue({ components: { DruxtView } }),

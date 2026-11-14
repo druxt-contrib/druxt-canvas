@@ -50,10 +50,11 @@ backend running when the example is generated.
 Composer on the host. Its view displays fit on one JSON:API page, which keeps
 it clear of the Canvas defect the main README describes.
 
-`drupal/.devtools/canvas-page.php` saves its one Canvas page. The core standard
-profile has no single-directory component with text inputs, so the page is
-built from a code component, rendered by the example's `DruxtCanvasJsDruxtCard`
-wrapper.
+The `drupal/recipes/druxt_canvas_example` recipe sets the site up: the Druxt
+module and its permission, Canvas, and one Canvas page, as default content. The
+core standard profile has no single-directory component with text inputs, so
+the page is built from a code component, in the recipe's `config/`, rendered by
+the example's `DruxtCanvasJsDruxtCard` wrapper.
 
 `cd example/drupal && ddev start && ddev drupal-install` builds the same site
 on DDEV's MySQL.
@@ -72,4 +73,5 @@ what the Drupal site needs.
 | `nuxt/pages/`          | Saved Canvas pages at `/` and `/external`; the backend's at `/backend`   |
 | `nuxt/package.json`    | Pins `consola` 2: webpack 4 cannot parse the version 3 build             |
 | `drupal/composer.json` | Drupal 11 with `drupal/druxt` and `drupal/canvas`; the lock is committed |
+| `drupal/recipes/`      | The recipe the backend is provisioned with                               |
 | `drupal/.devtools/`    | Docker-free provisioning: assemble, provision, start, stop, info         |

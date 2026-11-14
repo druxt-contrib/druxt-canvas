@@ -141,16 +141,27 @@ describe('buildCanvasTree', () => {
     ])
   })
 
-  test('reads the inputs when the resolved inputs are absent', () => {
+  test('never reads the stored inputs, whose markup Canvas has not filtered', () => {
     const items = fixture('canvas-page-2').data.attributes.components
     for (const item of items) delete item.inputs_resolved
     const [heading, text] = buildCanvasTree(items)
 
-    expect(heading.props.headingText).toBe('Druxt meets Canvas')
-    expect(text.props.text).toBe(
-      '<p>A Canvas page rendered by a <strong>Nuxt</strong> frontend.</p>'
-    )
+    expect(heading.props).toStrictEqual({})
+    expect(text.props).toStrictEqual({})
   })
+
+  test.each(['constructor', 'toString', '__proto__'])(
+    'places children in a slot named %s',
+    (slot) => {
+      const tree = buildCanvasTree([
+        { uuid: 'p', component_id: 'sdc.a.parent' },
+        { uuid: 'c', component_id: 'sdc.a.child', parent_uuid: 'p', slot },
+      ])
+
+      expect(Object.keys(tree[0].slots)).toStrictEqual([slot])
+      expect(tree[0].slots[slot].map((node) => node.uuid)).toStrictEqual(['c'])
+    }
+  )
 
   test('leaves out an orphan and an item without a slot, and says why', () => {
     const items = fixture('canvas-page-2').data.attributes.components
@@ -275,9 +286,9 @@ describe('getInputs', () => {
     ).toStrictEqual({ a: 2 })
   })
 
-  test('parses the stored inputs', () => {
-    expect(getInputs({ inputs: '{"a":1}' })).toStrictEqual({ a: 1 })
-    expect(getInputs({ inputs: { a: 3 } })).toStrictEqual({ a: 3 })
+  test('ignores the stored inputs', () => {
+    expect(getInputs({ inputs: '{"a":1}' })).toStrictEqual({})
+    expect(getInputs({ inputs: { a: 3 } })).toStrictEqual({})
   })
 
   test('answers an empty object for anything else', () => {

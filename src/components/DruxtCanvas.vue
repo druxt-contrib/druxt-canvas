@@ -206,16 +206,29 @@ export default {
 
     /**
      * Fetches the page's JSON:API resource, unless it was given as `value`.
+     *
+     * Nuxt runs one fetch at a time and answers a second `$fetch()` with the
+     * one already running, so a uuid that changes mid-request is fetched here
+     * once that request ends. A response for a uuid, language or type that is
+     * no longer current is dropped, and so is any response once a `value`
+     * has arrived.
      */
     async fetchData() {
-      if (this.value || !this.uuid) return
+      for (;;) {
+        if (this.value || !this.uuid) return
 
-      const resource = await this.getResource({
-        id: this.uuid,
-        prefix: this.lang,
-        type: this.type,
-      })
-      this.model = JSON.parse(JSON.stringify((resource || {}).data || {}))
+        const request = { id: this.uuid, prefix: this.lang, type: this.type }
+        const resource = await this.getResource(request)
+        if (this.value) return
+        if (
+          request.id === this.uuid &&
+          request.prefix === this.lang &&
+          request.type === this.type
+        ) {
+          this.model = JSON.parse(JSON.stringify((resource || {}).data || {}))
+          return
+        }
+      }
     },
 
     /**

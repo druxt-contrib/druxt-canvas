@@ -83,8 +83,8 @@ test.describe('a saved Canvas page', () => {
 })
 
 test.describe('a Canvas page from the backend', () => {
-  // example/drupal/.devtools/canvas-page.php saves it: two code component
-  // cards, one in the other's slot, then the main menu block.
+  // The example backend's druxt_canvas_example recipe saves it: two code
+  // component cards, one in the other's slot, then the main menu block.
   const expectTree = async (page) => {
     await expect(page.locator('.druxt-card > h3')).toHaveText([
       'From the backend',

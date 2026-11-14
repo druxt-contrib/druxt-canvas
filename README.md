@@ -185,8 +185,13 @@ The instance's inputs are the wrapper's props, in camelCase (`heading_text` is
 
 The inputs are the values Canvas resolved, from each item's `inputs_resolved`.
 Canvas passes an HTML input through its `canvas_html_block` text format first,
-so a wrapper may render it with `v-html`. The stored `inputs` are not read:
-their markup is unfiltered.
+and the stored `inputs` are not read, since their markup is unfiltered. A
+wrapper may render an HTML input with `v-html` while that format strips unsafe
+markup for everyone who can edit Canvas pages. If a site loosens the format,
+or lets people it does not trust edit pages, filter the HTML in the wrapper
+before rendering it. Drupal's guide to
+[configuring text formats for security](https://www.drupal.org/docs/administering-a-drupal-site/security-in-drupal/configuring-text-formats-aka-input-formats-for-security)
+covers the settings.
 
 Each Canvas slot is a Vue slot of the same name. The `default` slot is the
 component's default output.

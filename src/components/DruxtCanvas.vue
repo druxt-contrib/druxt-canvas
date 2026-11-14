@@ -209,22 +209,29 @@ export default {
      *
      * Nuxt runs one fetch at a time and answers a second `$fetch()` with the
      * one already running, so a uuid that changes mid-request is fetched here
-     * once that request ends. A response for a uuid, language or type that is
-     * no longer current is dropped, and so is any response once a `value`
-     * has arrived.
+     * once that request ends. A response or a failure for a uuid, language or
+     * type that is no longer current is dropped, and so is either once a
+     * `value` has arrived.
      */
     async fetchData() {
       for (;;) {
         if (this.value || !this.uuid) return
 
         const request = { id: this.uuid, prefix: this.lang, type: this.type }
-        const resource = await this.getResource(request)
+        let resource
+        let failure
+        try {
+          resource = await this.getResource(request)
+        } catch (error) {
+          failure = error
+        }
         if (this.value) return
         if (
           request.id === this.uuid &&
           request.prefix === this.lang &&
           request.type === this.type
         ) {
+          if (failure) throw failure
           this.model = JSON.parse(JSON.stringify((resource || {}).data || {}))
           return
         }

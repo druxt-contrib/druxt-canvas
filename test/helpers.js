@@ -25,7 +25,8 @@ export const fixture = (name) =>
 
 /**
  * Creates a local Vue with the Druxt and DruxtCanvas components, and stands in
- * for Nuxt: `$nuxt`, `$fetchState`, and a `fetch` hook run on creation.
+ * for Nuxt: `$nuxt`, `$fetchState`, and a `fetch` hook run on creation, one
+ * at a time.
  *
  * @param {object} [options] - Options.
  * @param {boolean} [options.isDev] - Whether Nuxt runs in development.
@@ -55,7 +56,19 @@ export const createVue = ({ isDev = true, components = {}, store } = {}) => {
   localVue.mixin({
     created() {
       if (this.$options.fetch) {
-        this.$fetch = () => this.$options.fetch.call(this)
+        // As Nuxt 2.15.8 does: one fetch at a time, so a `$fetch()` while one
+        // runs is answered with that one, and a failure ends it.
+        let running
+        this.$fetch = () => {
+          running =
+            running ||
+            Promise.resolve(this.$options.fetch.call(this))
+              .catch(() => {})
+              .then(() => {
+                running = undefined
+              })
+          return running
+        }
         this.$fetch()
       }
     },

@@ -291,6 +291,25 @@ describe('DruxtCanvasComponent', () => {
       }
     )
 
+    test.each(['constructor', 'toString', '__proto__'])(
+      'renders a Canvas slot named %s',
+      async (name) => {
+        const section = find(page2, 'sdc.mercury.section')
+        const slots = Object.defineProperty({}, name, {
+          enumerable: true,
+          value: section.slots.header_slot,
+        })
+        const wrapper = await mountAll(DruxtCanvasComponent, {
+          localVue: localVue(false),
+          propsData: { item: { ...section, slots } },
+        })
+
+        expect(
+          wrapper.findAll('h2').wrappers.map((node) => node.text())
+        ).toStrictEqual(['Two cards'])
+      }
+    )
+
     test('with no slots, shows the Druxt debug message naming the wrapper options, in development', async () => {
       const wrapper = await mountAll(DruxtCanvasComponent, {
         localVue: createVue(),

@@ -340,6 +340,45 @@ describe('DruxtCanvas', () => {
       expect(wrapper.vm.entity.id).toBe(uuid)
     })
 
+    test('is dropped when it fails after the uuid has changed', async () => {
+      const page3 = fixture('canvas-page-3')
+      const { store, release } = slowStore({
+        [uuid]: page2,
+        [page3.data.id]: page3,
+      })
+      const answer = store.dispatch.getMockImplementation()
+      store.dispatch.mockImplementation(async (action, payload) => {
+        const result = await answer(action, payload)
+        if (payload && payload.id === uuid) throw new Error('500')
+        return result
+      })
+      const wrapper = mount(DruxtCanvas, {
+        localVue: createVue({ components, store }),
+        propsData: { uuid },
+      })
+
+      await wrapper.setProps({ uuid: page3.data.id })
+      await flush(wrapper)
+      release()
+      await flush(wrapper)
+
+      expect(wrapper.vm.entity.id).toBe(page3.data.id)
+    })
+
+    test('fails the fetch when it fails for the current uuid', async () => {
+      const store = createStore({ resources: { [uuid]: page2 } })
+      const error = new Error('500')
+      store.dispatch.mockRejectedValue(error)
+      const wrapper = mount(DruxtCanvas, {
+        localVue: createVue({ components, store }),
+        propsData: { uuid },
+      })
+
+      await expect(
+        wrapper.vm.$options.druxt.fetchData.call(wrapper.vm)
+      ).rejects.toBe(error)
+    })
+
     test('is dropped when a resource has been given since', async () => {
       const page3 = fixture('canvas-page-3')
       const { store, release } = slowStore({ [uuid]: page2 })

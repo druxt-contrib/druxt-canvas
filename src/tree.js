@@ -9,7 +9,12 @@
  * @returns {string} The camelCase name.
  */
 export const camelCase = (key) =>
-  String(key).replace(/[_-]+([a-zA-Z0-9])/g, (_, c) => c.toUpperCase())
+  // The character after a separator run is optional, so a run with no letter
+  // or digit after it matches as it is, and is kept. A required one would make
+  // the match fail and be retried from every separator in the run.
+  String(key).replace(/[_-]+([a-zA-Z0-9]?)/g, (run, c) =>
+    c ? c.toUpperCase() : run
+  )
 
 /**
  * Reads the input values of one component instance.

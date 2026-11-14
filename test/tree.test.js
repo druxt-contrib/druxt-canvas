@@ -304,8 +304,19 @@ describe('camelCase', () => {
     ['level', 'level'],
     ['label-display', 'labelDisplay'],
     ['margin_block_start', 'marginBlockStart'],
+    ['double__underscore', 'doubleUnderscore'],
+    ['_leading', 'Leading'],
+    ['trailing_', 'trailing_'],
+    ['before_$sign', 'before_$sign'],
   ])('%s is %s', (input, output) => {
     expect(camelCase(input)).toBe(output)
+  })
+
+  test('takes linear time over a long separator run', () => {
+    const run = '-'.repeat(100000)
+    const start = Date.now()
+    expect(camelCase(`${run}!`)).toBe(`${run}!`)
+    expect(Date.now() - start).toBeLessThan(500)
   })
 })
 

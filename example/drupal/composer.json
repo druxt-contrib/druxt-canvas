@@ -2,7 +2,7 @@
     "name": "druxt-contrib/druxt-canvas-example-backend",
     "description": "The Drupal backend for the DruxtCanvas example application.",
     "type": "project",
-    "license": "MIT",
+    "license": "GPL-2.0-or-later",
     "repositories": [
         {
             "type": "composer",

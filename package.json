@@ -1,11 +1,22 @@
 {
-  "name": "druxt-module-template",
+  "name": "@druxt-contrib/canvas",
   "version": "0.0.0",
-  "description": "Starting point for a Druxt module.",
+  "description": "Drupal Canvas pages for Druxt.",
   "keywords": [
+    "canvas",
+    "drupal",
     "druxt",
-    "module"
+    "module",
+    "nuxt"
   ],
+  "homepage": "https://github.com/druxt-contrib/druxt-canvas#readme",
+  "bugs": {
+    "url": "https://github.com/druxt-contrib/druxt-canvas/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/druxt-contrib/druxt-canvas.git"
+  },
   "license": "MIT",
   "exports": {
     ".": {
@@ -56,6 +67,10 @@
     "test:visual:update": "playwright test --grep @visual --update-snapshots",
     "test:watch": "jest --watch"
   },
+  "peerDependencies": {
+    "druxt": "^0.25.1",
+    "vuex": "^3.6.2"
+  },
   "devDependencies": {
     "@babel/core": "7.20.2",
     "@babel/preset-env": "7.20.2",
@@ -66,7 +81,9 @@
     "@vue/test-utils": "1.3.3",
     "babel-core": "7.0.0-bridge.0",
     "cspell": "7.3.9",
-    "druxt": "0.21.0",
+    "druxt": "0.25.1",
+    "druxt-entity": "0.29.1",
+    "druxt-router": "0.32.1",
     "esbuild-jest": "0.5.0",
     "eslint": "8.28.0",
     "eslint-config-prettier": "8.10.0",
@@ -78,11 +95,11 @@
     "knip": "2.43.0",
     "markdownlint-cli2": "0.10.0",
     "prettier": "3.3.3",
-    "regenerator-runtime": "0.14.1",
     "siroc": "0.16.0",
     "vue": "2.7.16",
     "vue-jest": "3.0.7",
-    "vue-template-compiler": "2.7.16"
+    "vue-template-compiler": "2.7.16",
+    "vuex": "3.6.2"
   },
   "packageManager": "npm@8.19.4",
   "engines": {
@@ -90,9 +107,5 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "jest-junit": {
-    "outputDirectory": "reports/junit",
-    "outputName": "junit.xml"
   }
 }

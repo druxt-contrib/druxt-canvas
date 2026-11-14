@@ -4,9 +4,10 @@
 /**
  * @file
  * Provision the example backend: a fresh standard-profile `drush
- * site:install` against a throwaway SQLite database, with `druxt` enabled
- * and anonymous read access to its resources. That is all the example
- * application reads, so there is nothing to import.
+ * site:install` against a throwaway SQLite database, then the
+ * recipes/druxt_canvas_example recipe: the Druxt module with anonymous read
+ * access to its resources, and Canvas with one page. That is all the example
+ * application reads.
  *
  * The SQLite override lives in `web/sites/default/settings.local.php`
  * (gitignored), not `settings.php`. This repo has no committed
@@ -26,7 +27,7 @@ require_once __DIR__ . '/helpers.php';
 // Variables.
 // -----------------------------------------------------------------------------
 
-$db_file = resolve_env_value('DB_FILE', '/tmp/druxt-module-template-drupal-site.sqlite')[0];
+$db_file = resolve_env_value('DB_FILE', '/tmp/druxt-canvas-drupal-site.sqlite')[0];
 
 // -----------------------------------------------------------------------------
 
@@ -66,25 +67,15 @@ file_put_contents('web/sites/default/settings.local.php', sprintf(
 PASS('SQLite database configured.');
 
 TASK('Running drush site:install standard.');
-drush('site:install standard --site-name=%s', 'druxt-module-template');
+drush('site:install standard --site-name=%s', 'druxt-canvas');
 PASS('Site installed.');
 
-// Drupal 11's `standard` profile no longer creates content types itself -
-// Article and Page now ship as separate core recipes. Without them there
-// are no node bundles, so jsonapi_views can't register a route for any
-// node-based view (including the front page), and the site can't do
-// anything content-shaped.
-TASK('Applying Article and Page content-type recipes.');
-foreach (['article_content_type', 'page_content_type'] as $recipe) {
-  drush('recipe:apply %s', getcwd() . "/web/core/recipes/$recipe");
-}
+// Everything the example reads, as a recipe: the content types, the Druxt
+// module and its permission, Canvas, and the Canvas page.
+TASK('Applying the druxt_canvas_example recipe.');
+drush('recipe:apply %s', getcwd() . '/recipes/druxt_canvas_example');
 drush('cache:rebuild');
-PASS('Content types applied.');
-
-TASK('Enabling the druxt module.');
-drush('pm:enable druxt');
-drush('role:perm:add anonymous %s', 'access druxt resources');
-PASS('druxt enabled; anonymous can access Druxt resources.');
+PASS('Recipe applied, with a Canvas page at /canvas-demo.');
 
 echo PHP_EOL;
 echo '===============================' . PHP_EOL;

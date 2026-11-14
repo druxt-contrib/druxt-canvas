@@ -1,5 +1,5 @@
 {
-  "name": "druxt-module-template-example",
+  "name": "druxt-canvas-example",
   "version": "0.0.0",
   "scripts": {
     "build": "nuxt build",
@@ -8,9 +8,11 @@
     "start": "nuxt start"
   },
   "dependencies": {
+    "@druxt-contrib/canvas": "file:../..",
     "consola": "2.15.3",
-    "druxt": "^0.21.0",
-    "druxt-module-template": "file:../..",
+    "druxt": "^0.25.1",
+    "druxt-entity": "^0.29.1",
+    "druxt-router": "^0.32.1",
     "nuxt": "2.15.8"
   },
   "private": true,

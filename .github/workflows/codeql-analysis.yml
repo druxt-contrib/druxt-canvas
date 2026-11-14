@@ -67,5 +67,18 @@ jobs:
       #   make bootstrap
       #   make release
 
+      # Code scanning refuses an upload from a private repository without
+      # Advanced Security, which fails this step after the analysis has run.
+      # There the results are kept as SARIF instead, and the next step fails
+      # on them.
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@4187e74d05793876e9989daffde9c3e66b4acd07  # v3
+        with:
+          upload: ${{ github.event.repository.private && 'never' || 'always' }}
+          output: sarif-results
+
+      - name: List the findings of a private repository
+        if: ${{ github.event.repository.private }}
+        run: |
+          jq -r '.runs[].results[] | "\(.locations[0].physicalLocation.artifactLocation.uri):\(.locations[0].physicalLocation.region.startLine) \(.ruleId): \(.message.text)"' sarif-results/*.sarif
+          test "$(jq -s '[.[].runs[].results[]] | length' sarif-results/*.sarif)" -eq 0

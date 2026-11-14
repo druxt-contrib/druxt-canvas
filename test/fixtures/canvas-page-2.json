@@ -1,0 +1,322 @@
+{
+  "jsonapi": {
+    "version": "1.1",
+    "meta": {
+      "links": { "self": { "href": "https://jsonapi.org/format/1.1/" } }
+    }
+  },
+  "data": {
+    "type": "canvas_page--canvas_page",
+    "id": "efff9394-e546-4d64-98e8-295c92367d52",
+    "links": {
+      "self": {
+        "href": "http://127.0.0.1:8890/jsonapi/canvas_page/canvas_page/efff9394-e546-4d64-98e8-295c92367d52?resourceVersion=id%3A2"
+      },
+      "working-copy": {
+        "href": "http://127.0.0.1:8890/jsonapi/canvas_page/canvas_page/efff9394-e546-4d64-98e8-295c92367d52?resourceVersion=rel%3Aworking-copy"
+      }
+    },
+    "attributes": {
+      "drupal_internal__id": 2,
+      "drupal_internal__revision_id": 2,
+      "langcode": "en",
+      "revision_created": "2026-11-13T19:53:22+00:00",
+      "status": true,
+      "title": "Canvas demo page",
+      "description": "A Canvas page for the Druxt demo.",
+      "components": [
+        {
+          "parent_uuid": null,
+          "slot": null,
+          "uuid": "9fa5f3f0-1958-4f20-81b5-e5b708cb3f7e",
+          "component_id": "sdc.mercury.heading",
+          "component_version": "9ba4baa1476e5856",
+          "inputs": "{\u0022heading_text\u0022:\u0022Druxt meets Canvas\u0022,\u0022level\u0022:1,\u0022text_size\u0022:\u0022heading-responsive-7xl\u0022,\u0022text_color\u0022:\u0022default\u0022,\u0022align\u0022:\u0022left\u0022}",
+          "label": null,
+          "inputs_resolved": {
+            "heading_text": "Druxt meets Canvas",
+            "level": 1,
+            "text_size": "heading-responsive-7xl",
+            "text_color": "default",
+            "align": "left"
+          }
+        },
+        {
+          "parent_uuid": null,
+          "slot": null,
+          "uuid": "03e409c1-8201-4a63-a6b9-0cb2e87f29ed",
+          "component_id": "sdc.mercury.text",
+          "component_version": "16c79c28a4108f9b",
+          "inputs": "{\u0022text\u0022:\u0022\\u003Cp\\u003EA Canvas page rendered by a \\u003Cstrong\\u003ENuxt\\u003C\\/strong\\u003E frontend.\\u003C\\/p\\u003E\u0022,\u0022text_size\u0022:\u0022normal\u0022,\u0022text_color\u0022:\u0022default\u0022}",
+          "label": null,
+          "inputs_resolved": {
+            "text": "\u003Cp\u003EA Canvas page rendered by a \u003Cstrong\u003ENuxt\u003C/strong\u003E frontend.\u003C/p\u003E",
+            "text_size": "normal",
+            "text_color": "default"
+          }
+        },
+        {
+          "parent_uuid": null,
+          "slot": null,
+          "uuid": "6fa66f45-0af9-44b7-8c6b-76a7b3a37ea9",
+          "component_id": "sdc.mercury.section",
+          "component_version": "a917d5c9be8f2830",
+          "inputs": "{\u0022width\u0022:\u002275%\u0022,\u0022columns\u0022:\u002250-50\u0022,\u0022mobile_columns\u0022:\u00221\u0022,\u0022margin_block_start\u0022:\u002248\u0022,\u0022margin_block_end\u0022:\u002248\u0022,\u0022padding_block_start\u0022:\u00220\u0022,\u0022padding_block_end\u0022:\u00220\u0022,\u0022section_header\u0022:true,\u0022section_footer\u0022:false}",
+          "label": null,
+          "inputs_resolved": {
+            "width": "75%",
+            "columns": "50-50",
+            "mobile_columns": "1",
+            "margin_block_start": "48",
+            "margin_block_end": "48",
+            "padding_block_start": "0",
+            "padding_block_end": "0",
+            "section_header": true,
+            "section_footer": false
+          }
+        },
+        {
+          "parent_uuid": "6fa66f45-0af9-44b7-8c6b-76a7b3a37ea9",
+          "slot": "header_slot",
+          "uuid": "bc0d39cc-e5f0-41df-ae46-a6efeac91e1e",
+          "component_id": "sdc.mercury.heading",
+          "component_version": "9ba4baa1476e5856",
+          "inputs": "{\u0022heading_text\u0022:\u0022Two cards\u0022,\u0022level\u0022:2,\u0022text_size\u0022:\u0022heading-responsive-4xl\u0022,\u0022text_color\u0022:\u0022default\u0022,\u0022align\u0022:\u0022left\u0022}",
+          "label": null,
+          "inputs_resolved": {
+            "heading_text": "Two cards",
+            "level": 2,
+            "text_size": "heading-responsive-4xl",
+            "text_color": "default",
+            "align": "left"
+          }
+        },
+        {
+          "parent_uuid": "6fa66f45-0af9-44b7-8c6b-76a7b3a37ea9",
+          "slot": "main_slot",
+          "uuid": "3798689e-38ae-4d8f-95e0-4e8a81e900cc",
+          "component_id": "sdc.mercury.card",
+          "component_version": "c313844ff80fde7d",
+          "inputs": "{\u0022heading_text\u0022:\u0022First card\u0022,\u0022orientation\u0022:\u0022vertical\u0022,\u0022style\u0022:\u0022framed\u0022,\u0022background\u0022:\u0022default\u0022,\u0022level\u0022:3,\u0022text\u0022:\u0022Card one body.\u0022,\u0022url\u0022:\u0022\\/privacy-policy\u0022,\u0022is_text_centered\u0022:false}",
+          "label": null,
+          "inputs_resolved": {
+            "heading_text": "First card",
+            "orientation": "vertical",
+            "style": "framed",
+            "background": "default",
+            "level": 3,
+            "text": "Card one body.",
+            "url": "/privacy-policy",
+            "is_text_centered": false
+          }
+        },
+        {
+          "parent_uuid": "6fa66f45-0af9-44b7-8c6b-76a7b3a37ea9",
+          "slot": "main_slot",
+          "uuid": "bd036322-db19-4bab-beec-e66ea204703b",
+          "component_id": "sdc.mercury.card",
+          "component_version": "c313844ff80fde7d",
+          "inputs": "{\u0022heading_text\u0022:\u0022Second card\u0022,\u0022orientation\u0022:\u0022vertical\u0022,\u0022style\u0022:\u0022framed\u0022,\u0022background\u0022:\u0022default\u0022,\u0022level\u0022:3,\u0022text\u0022:\u0022Card two body.\u0022,\u0022is_text_centered\u0022:false}",
+          "label": null,
+          "inputs_resolved": {
+            "heading_text": "Second card",
+            "orientation": "vertical",
+            "style": "framed",
+            "background": "default",
+            "level": 3,
+            "text": "Card two body.",
+            "is_text_centered": false
+          }
+        },
+        {
+          "parent_uuid": null,
+          "slot": null,
+          "uuid": "af1c2d88-0700-4425-ab44-67fc602e6fe5",
+          "component_id": "sdc.mercury.button",
+          "component_version": "0ca665b3987e81dd",
+          "inputs": "{\u0022variant\u0022:\u0022primary\u0022,\u0022size\u0022:\u0022large\u0022,\u0022label\u0022:\u0022Read the docs\u0022,\u0022href\u0022:\u0022https:\\/\\/druxtjs.org\u0022,\u0022mobile_width\u0022:false,\u0022icon\u0022:\u0022arrow-right\u0022,\u0022icon_first\u0022:false,\u0022disabled\u0022:false}",
+          "label": null,
+          "inputs_resolved": {
+            "variant": "primary",
+            "size": "large",
+            "label": "Read the docs",
+            "href": "https://druxtjs.org",
+            "mobile_width": false,
+            "icon": "arrow-right",
+            "icon_first": false,
+            "disabled": false
+          }
+        },
+        {
+          "parent_uuid": null,
+          "slot": null,
+          "uuid": "039863db-c7e7-49b5-9c7a-7a1325c9d4d6",
+          "component_id": "block.system_menu_block.main",
+          "component_version": "322535c0078cf59c",
+          "inputs": "{\u0022label\u0022:\u0022Main navigation\u0022,\u0022label_display\u0022:\u00220\u0022,\u0022level\u0022:1,\u0022depth\u0022:2,\u0022expand_all_items\u0022:false}",
+          "label": null,
+          "inputs_resolved": {
+            "label": "Main navigation",
+            "label_display": "0",
+            "level": 1,
+            "depth": 2,
+            "expand_all_items": false
+          }
+        },
+        {
+          "parent_uuid": null,
+          "slot": null,
+          "uuid": "0655097b-ed45-46db-bdf3-37cf0b641503",
+          "component_id": "block.views_block.recent_pages-block_recent_pages",
+          "component_version": "627255e24580a6dd",
+          "inputs": "{\u0022label\u0022:\u0022\u0022,\u0022label_display\u0022:\u00220\u0022,\u0022views_label\u0022:\u0022\u0022,\u0022items_per_page\u0022:5}",
+          "label": null,
+          "inputs_resolved": {
+            "label": "",
+            "label_display": "0",
+            "views_label": "",
+            "items_per_page": 5
+          }
+        }
+      ],
+      "page_variant": null,
+      "path": { "alias": "/demo", "pid": 5, "langcode": "en" },
+      "created": "2026-11-13T19:53:22+00:00",
+      "changed": "2026-11-13T19:53:22+00:00",
+      "default_langcode": true,
+      "revision_translation_affected": true,
+      "metatag": [
+        {
+          "tag": "meta",
+          "attributes": {
+            "name": "title",
+            "content": "Canvas demo page | Canvas demo"
+          }
+        },
+        {
+          "tag": "meta",
+          "attributes": {
+            "name": "description",
+            "content": "A Canvas page for the Druxt demo."
+          }
+        },
+        {
+          "tag": "link",
+          "attributes": { "rel": "canonical", "href": "/demo" }
+        },
+        {
+          "tag": "link",
+          "attributes": {
+            "rel": "shortlink",
+            "href": "http://127.0.0.1:8890/jsonapi/canvas_page/canvas_page/efff9394-e546-4d64-98e8-295c92367d52"
+          }
+        },
+        {
+          "tag": "meta",
+          "attributes": {
+            "name": "rights",
+            "content": "Copyright \u00a9 All rights reserved."
+          }
+        },
+        {
+          "tag": "meta",
+          "attributes": { "name": "referrer", "content": "unsafe-url" }
+        },
+        {
+          "tag": "meta",
+          "attributes": { "property": "og:site_name", "content": "Canvas demo" }
+        },
+        {
+          "tag": "meta",
+          "attributes": { "property": "og:type", "content": "website" }
+        },
+        {
+          "tag": "meta",
+          "attributes": {
+            "property": "og:url",
+            "content": "http://127.0.0.1:8890/jsonapi/canvas_page/canvas_page/efff9394-e546-4d64-98e8-295c92367d52"
+          }
+        },
+        {
+          "tag": "meta",
+          "attributes": {
+            "property": "og:title",
+            "content": "Canvas demo page"
+          }
+        },
+        {
+          "tag": "meta",
+          "attributes": {
+            "property": "og:description",
+            "content": "A Canvas page for the Druxt demo."
+          }
+        },
+        {
+          "tag": "meta",
+          "attributes": {
+            "name": "twitter:card",
+            "content": "summary_large_image"
+          }
+        },
+        {
+          "tag": "meta",
+          "attributes": {
+            "name": "twitter:title",
+            "content": "Canvas demo page"
+          }
+        },
+        {
+          "tag": "meta",
+          "attributes": {
+            "name": "twitter:description",
+            "content": "A Canvas page for the Druxt demo."
+          }
+        }
+      ]
+    },
+    "relationships": {
+      "revision_user": {
+        "data": null,
+        "links": {
+          "related": {
+            "href": "http://127.0.0.1:8890/jsonapi/canvas_page/canvas_page/efff9394-e546-4d64-98e8-295c92367d52/revision_user?resourceVersion=id%3A2"
+          },
+          "self": {
+            "href": "http://127.0.0.1:8890/jsonapi/canvas_page/canvas_page/efff9394-e546-4d64-98e8-295c92367d52/relationships/revision_user?resourceVersion=id%3A2"
+          }
+        }
+      },
+      "owner": {
+        "data": {
+          "type": "user--user",
+          "id": "f6951832-61c6-4914-9362-ef249883e42e",
+          "meta": { "target_uuid": null, "drupal_internal__target_id": 0 }
+        },
+        "links": {
+          "related": {
+            "href": "http://127.0.0.1:8890/jsonapi/canvas_page/canvas_page/efff9394-e546-4d64-98e8-295c92367d52/owner?resourceVersion=id%3A2"
+          },
+          "self": {
+            "href": "http://127.0.0.1:8890/jsonapi/canvas_page/canvas_page/efff9394-e546-4d64-98e8-295c92367d52/relationships/owner?resourceVersion=id%3A2"
+          }
+        }
+      },
+      "image": {
+        "data": null,
+        "links": {
+          "related": {
+            "href": "http://127.0.0.1:8890/jsonapi/canvas_page/canvas_page/efff9394-e546-4d64-98e8-295c92367d52/image?resourceVersion=id%3A2"
+          },
+          "self": {
+            "href": "http://127.0.0.1:8890/jsonapi/canvas_page/canvas_page/efff9394-e546-4d64-98e8-295c92367d52/relationships/image?resourceVersion=id%3A2"
+          }
+        }
+      }
+    }
+  },
+  "links": {
+    "self": {
+      "href": "http://127.0.0.1:8890/jsonapi/canvas_page/canvas_page/efff9394-e546-4d64-98e8-295c92367d52"
+    }
+  }
+}

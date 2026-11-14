@@ -1,8 +1,8 @@
 # Words this project uses that the standard dictionaries do not carry.
 # Add a term here rather than switching the check off for a file.
 actionlint
-autobuild
 Autobuild
+autobuild
 automerge
 badgen
 behaviour
@@ -19,8 +19,9 @@ dbaeumer
 DDEV
 devcontainer
 devcontainers
-druxt
+Devel
 Druxt
+druxt
 druxtjs
 esbenp
 esbuild
@@ -33,6 +34,7 @@ jsonapi
 knip
 Ksection
 Lando
+langcode
 libfreetype
 libicu
 libjpeg
@@ -43,7 +45,10 @@ libxml
 libzip
 Licence
 lndo
+macrotask
 markdownlint
+metatag
+metatags
 mise
 networkidle
 nproc
@@ -55,7 +60,10 @@ opcache
 opencode
 pdo
 pyyaml
+refetches
+sarif
 shivammathur
+shortlink
 siroc
 sqlite
 unparseable

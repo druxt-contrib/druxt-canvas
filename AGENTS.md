@@ -1,7 +1,8 @@
 # Agent instructions
 
-Starting point for a Druxt module, and the reference for how every Druxt
-module is set up.
+DruxtCanvas renders Drupal Canvas pages in a Druxt site. The repository is
+set up from the Druxt module template, so its tooling and rules are the same
+as every other Druxt module's.
 
 ## Rules
 
@@ -38,14 +39,14 @@ and OpenCode. Where a tool has no MCP support, use
 
 ## Layout
 
-| Path               | Purpose                                                                 |
-| ------------------ | ----------------------------------------------------------------------- |
-| `src/`             | The module. `index.js` is the Nuxt module, `components/` its components |
-| `test/`            | Unit tests. `test/e2e/` is Playwright, and is not run by `npm test`     |
-| `example/`         | Drupal 11 on SQLite and a Nuxt application that loads the module        |
-| `scripts/`         | Repository tooling, excluded from the package                           |
-| `.githooks/`       | Committed hooks, enabled by `npm install`                               |
-| `.gitlab/scripts/` | Content checks and merge-request automation, shared by Druxt modules    |
+| Path               | Purpose                                                                  |
+| ------------------ | ------------------------------------------------------------------------ |
+| `src/`             | The module. `index.js` is the Nuxt module, `components/` its components  |
+| `test/`            | Unit tests. `test/e2e/` is Playwright, and is not run by `npm test`      |
+| `example/`         | A Nuxt application rendering saved Canvas pages, and a Drupal 11 backend |
+| `scripts/`         | Repository tooling, excluded from the package                            |
+| `.githooks/`       | Committed hooks, enabled by `npm install`                                |
+| `.gitlab/scripts/` | Content checks and merge-request automation, shared by Druxt modules     |
 
 ## Commands
 
@@ -57,7 +58,7 @@ npm run lint         # every linter except prose
 npm run lint:prose   # Vale, after `npm run lint:prose:install`
 npm run example:setup  # Drupal 11 backend on SQLite, then the example's dependencies
 npm run example:dev    # the example on http://localhost:3000
-npm run test:e2e       # Playwright against the example, backend up
+npm run test:e2e       # Playwright against the generated example, backend up
 ```
 
 ## Toolchain

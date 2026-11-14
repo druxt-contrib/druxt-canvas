@@ -1,58 +1,107 @@
-import NuxtModule from '../src'
+import { join } from 'path'
 
-const options = {
-  baseUrl: 'https://demo-api.druxtjs.org',
-  endpoint: '/jsonapi',
-}
+import DruxtCanvasNuxtModule, * as exported from '../src'
 
-let mock
+// A component of this package, from its components directory.
+const component = (pascalName) => ({
+  pascalName,
+  filePath: join(__dirname, '../src/components', `${pascalName}.vue`),
+})
 
-describe('DruxtModule Nuxt module', () => {
+describe('DruxtCanvasNuxtModule', () => {
+  let hooks
+  let mock
+
   beforeEach(() => {
+    hooks = {}
     mock = {
-      addModule: jest.fn(),
-      addTemplate: jest.fn(),
-      extendRoutes: jest.fn(),
       nuxt: {
-        hook: jest.fn(),
+        hook: jest.fn((name, fn) => {
+          hooks[name] = fn
+        }),
       },
       options: {},
-      NuxtModule,
     }
+    DruxtCanvasNuxtModule.call(mock)
   })
 
-  test('Init', () => {
-    // Add Nuxt hook mock handler.
+  test('registers the components directory, below the site in priority', () => {
     const dirs = []
-    mock.nuxt.hook = jest.fn((hook, fn) => fn(dirs))
+    hooks['components:dirs'](dirs)
 
-    // Call Druxt module with module options.
-    NuxtModule.call(mock, options)
-
-    // Expect that:
-    // - The components:dirs hook was invoked.
-    // - One directory is present.
-    expect(mock.nuxt.hook).toHaveBeenCalledWith(
-      'components:dirs',
-      expect.any(Function)
-    )
-    expect(dirs.length).toBe(1)
+    expect(dirs).toHaveLength(1)
+    expect(dirs[0]).toMatchObject({
+      path: join(__dirname, '../src/components'),
+      pathPrefix: false,
+      level: 1,
+    })
+    expect(
+      dirs[0].extendComponent({ pascalName: 'DruxtCanvas', isAsync: null })
+    ).toStrictEqual({ pascalName: 'DruxtCanvas', isAsync: false })
   })
 
-  test('Init without module options', () => {
-    // The `moduleOptions = {}` default is a branch, and calling the module
-    // with options every time never takes it. Nuxt calls a module with no
-    // options whenever it is registered as a bare string in `buildModules`,
-    // which is how the example application registers this one.
-    const dirs = []
-    mock.nuxt.hook = jest.fn((hook, fn) => fn(dirs))
+  test('keeps a block mapping only when its Druxt module is installed', () => {
+    const components = [
+      'DruxtCanvas',
+      'DruxtCanvasComponent',
+      'DruxtCanvasBlockSystemBreadcrumbBlock',
+      'DruxtCanvasBlockSystemMenuBlock',
+      'DruxtCanvasBlockViewsBlock',
+      'DruxtMenu',
+    ].map(component)
+    hooks['components:extend'](components)
 
-    NuxtModule.call(mock)
+    expect(components.map((c) => c.pascalName)).toStrictEqual([
+      'DruxtCanvas',
+      'DruxtCanvasComponent',
+      'DruxtCanvasBlockSystemMenuBlock',
+      'DruxtMenu',
+    ])
+  })
 
-    expect(mock.nuxt.hook).toHaveBeenCalledWith(
-      'components:dirs',
-      expect.any(Function)
-    )
-    expect(dirs.length).toBe(1)
+  test("keeps a site's own block wrapper whatever is installed", () => {
+    const site = {
+      pascalName: 'DruxtCanvasBlockSystemMenuBlock',
+      filePath: '/site/components/DruxtCanvasBlockSystemMenuBlock.vue',
+    }
+    const components = [site, component('DruxtCanvasBlockViewsBlock')]
+    hooks['components:extend'](components)
+
+    expect(components).toStrictEqual([site])
+  })
+
+  test('keeps every block mapping when every Druxt module is installed', () => {
+    const names = [
+      'DruxtCanvasBlockSystemBreadcrumbBlock',
+      'DruxtCanvasBlockSystemMenuBlock',
+      'DruxtCanvasBlockViewsBlock',
+      'DruxtBreadcrumb',
+      'DruxtMenu',
+      'DruxtView',
+    ]
+    const components = names.map(component)
+    hooks['components:extend'](components)
+
+    expect(components.map((c) => c.pascalName)).toStrictEqual(names)
+  })
+
+  test('exports', () => {
+    expect(Object.keys(exported).sort()).toStrictEqual([
+      'DruxtCanvasComponentMixin',
+      'blockMappings',
+      'buildCanvasTree',
+      'camelCase',
+      'default',
+      'getComponentParts',
+      'getHead',
+      'hasComponent',
+      'renderBlock',
+      'renderDebug',
+    ])
+  })
+  test('every export resolves', () => {
+    for (const key of Object.keys(exported)) {
+      expect(exported[key]).toBeDefined()
+    }
   })
 })

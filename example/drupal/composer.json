@@ -1,8 +1,8 @@
 {
-    "name": "druxt/module-template-example-backend",
-    "description": "The Drupal backend for the module template's example application.",
+    "name": "druxt-contrib/druxt-canvas-example-backend",
+    "description": "The Drupal backend for the DruxtCanvas example application.",
     "type": "project",
-    "license": "MIT",
+    "license": "GPL-2.0-or-later",
     "repositories": [
         {
             "type": "composer",
@@ -11,6 +11,7 @@
     ],
     "require": {
         "composer/installers": "^2.2",
+        "drupal/canvas": "^1.12",
         "drupal/core-composer-scaffold": "~11",
         "drupal/core-project-message": "~11",
         "drupal/core-recommended": "~11",

@@ -16,9 +16,6 @@
     "esbuild-jest",
     "vue-jest",
     // Peer of the Vue toolchain, resolved by vue-jest at runtime.
-    "vue-template-compiler",
-    // Used by the example application, which knip does not treat as an entry
-    // point because it is a separate package.
-    "druxt"
+    "vue-template-compiler"
   ]
 }

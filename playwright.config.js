@@ -11,8 +11,10 @@ const { defineConfig, devices } = require('@playwright/test')
  *
  * Tests tagged @visual compare against committed baselines and run only where
  * those were made, the manual `visual:update` pipeline job. Without
- * PLAYWRIGHT_BASE_URL the config starts the example's dev server, which needs
- * the example backend running: `npm run example:setup` once.
+ * PLAYWRIGHT_BASE_URL the config generates the example and serves it, as the
+ * pipelines do, because some checks hold only for a production build. That
+ * needs the module built and the example backend up with the example's
+ * dependencies: `npm run build && npm run example:setup` once.
  */
 module.exports = defineConfig({
   testDir: './test/e2e',
@@ -64,10 +66,11 @@ module.exports = defineConfig({
   webServer: process.env.PLAYWRIGHT_BASE_URL
     ? undefined
     : {
-        // The example needs its backend up: `npm run example:setup` once.
-        command: 'npm run example:dev',
+        // What the pipelines serve: the generated example, which reads the
+        // backend while it generates.
+        command: 'npm run example:generate && npm run serve',
         url: 'http://localhost:3000',
         reuseExistingServer: !process.env.CI,
-        timeout: 180 * 1000,
+        timeout: 300 * 1000,
       },
 })

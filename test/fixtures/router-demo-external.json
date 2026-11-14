@@ -1,0 +1,25 @@
+{
+  "resolved": "http://127.0.0.1:8890/demo-external",
+  "isExternal": false,
+  "isHomePath": false,
+  "entity": {
+    "canonical": "http://127.0.0.1:8890/demo-external",
+    "type": "canvas_page",
+    "bundle": "canvas_page",
+    "id": "3",
+    "uuid": "246b05e4-ecd9-45d5-ad49-65d757a1e3ea"
+  },
+  "label": "Canvas external components",
+  "jsonapi": {
+    "individual": "http://127.0.0.1:8890/jsonapi/canvas_page/canvas_page/246b05e4-ecd9-45d5-ad49-65d757a1e3ea",
+    "resourceName": "canvas_page--canvas_page",
+    "pathPrefix": "jsonapi",
+    "basePath": "/jsonapi",
+    "entryPoint": "http://127.0.0.1:8890/jsonapi"
+  },
+  "meta": {
+    "deprecated": {
+      "jsonapi.pathPrefix": "This property has been deprecated and will be removed in the next version of Decoupled Router. Use basePath instead."
+    }
+  }
+}

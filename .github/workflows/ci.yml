@@ -98,9 +98,26 @@ jobs:
 
       - run: npm run build
 
+      # A published install runs the package's own scripts and reads its files
+      # allowlist; a file:/link install and the unit tests do neither, so this
+      # is the step that proves the package a consumer downloads can install.
+      # The GitLab test:pack job does the same.
+      - name: Pack and install the tarball
+        run: |
+          npm pack
+          mkdir -p "$RUNNER_TEMP/pack-check"
+          mv ./*.tgz "$RUNNER_TEMP/pack-check/pkg.tgz"
+          PKG=$(node -p "require('./package.json').name")
+          MAIN=$(node -p "require('./package.json').main || 'index.js'")
+          cd "$RUNNER_TEMP/pack-check" && npm init -y > /dev/null
+          npm install ./pkg.tgz --legacy-peer-deps --no-audit --no-fund
+          test -f "node_modules/$PKG/$MAIN"
+
       # The coverage floor in jest.config.js is what fails here. Codecov below
       # adds the per-pull-request view on top and is not the gate.
       - run: npm test -- --reporters=default --reporters=jest-junit --runInBand
+        env:
+          JEST_JUNIT_OUTPUT_DIR: reports/junit
 
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02  # v4
         if: always()

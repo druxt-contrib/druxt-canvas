@@ -54,6 +54,7 @@ networkidle
 nproc
 Nuxt
 nuxt
+nuxtjs
 nvm
 nvmrc
 opcache

@@ -98,13 +98,16 @@ of:
 
 - `orphan`: its parent isn't on the page.
 - `slot`: it has a parent but no slot.
-- `cycle`: its parents form a loop.
+- `cycle`: no top-level component reaches it. Its parents form a loop, or an
+  ancestor was left out as an orphan or for a missing slot, so check the
+  ancestors' warnings too.
 - `invalid`: it has no UUID or no component ID.
 - `duplicate`: an earlier item has the same UUID. The first one is kept.
 
 Report it on the
-[issue queue](https://github.com/druxt-contrib/druxt-canvas/issues), with the
-page's JSON:API response.
+[issue queue](https://github.com/druxt-contrib/druxt-canvas/issues), with a
+small example of the page's `components` field. Leave out unpublished content
+and anything private: the issue queue is public.
 
 ### `[druxt-canvas] Not rendering <type> <id> inside itself.`
 

@@ -28,8 +28,19 @@ The pattern is `DruxtCanvas[Source][Provider][Name]`. A code component,
 wrapper too, since JSON:API sends their inputs, not their code. The main menu
 block, `block.system_menu_block.main`, is `DruxtCanvasBlockSystemMenuBlockMain`.
 
-With a langcode, each name also has a langcode variant, such as
-`DruxtCanvasSdcMercuryHeadingEn`, tried before the name without it.
+With a langcode, each name also has a langcode variant, and Druxt orders the
+whole list by how many parts a name has. A shorter name with a langcode can
+then come before a longer one without. For `js.druxt_card` in English:
+
+1. `DruxtCanvasJsDruxtCardEn`
+2. `DruxtCanvasJsEn`
+3. `DruxtCanvasJsDruxtCard`
+4. `DruxtCanvasDefaultEn`
+5. `DruxtCanvasJs`
+6. `DruxtCanvasDefault`
+
+So a `DruxtCanvasJsEn` wrapper replaces `DruxtCanvasJsDruxtCard` on English
+pages. Name a language wrapper only as broadly as you mean it.
 
 ## Inputs
 

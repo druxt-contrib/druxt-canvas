@@ -121,7 +121,7 @@ Until a release fixes it, patch Canvas with
        return count($result);
 ```
 
-Then add it to `composer.json`, and run `composer install`:
+Then add it to `composer.json`:
 
 ```json
 "extra": {
@@ -133,10 +133,22 @@ Then add it to `composer.json`, and run `composer install`:
 }
 ```
 
+On a new site, `composer install` applies it. On a site that already has
+Canvas installed, Composer Patches 2 keeps the patches it last applied in
+`patches.lock.json`, so update the lock and reapply them:
+
+```sh
+composer patches-relock
+composer patches-repatch
+```
+
+Repatching reinstalls every patched package, which deletes any changes made
+in those packages by hand.
+
 To check a site, ask for a later page:
 
 ```sh
-curl -s -o /dev/null -w '%{http_code}\n' \
+curl -gs -o /dev/null -w '%{http_code}\n' \
   'https://drupal.example.com/jsonapi/entity_view_display/entity_view_display?page[offset]=50'
 ```
 

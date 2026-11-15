@@ -22,6 +22,16 @@ Renders the pages editors build in
 Nuxt components decide how it looks: each Canvas component renders through a
 Druxt wrapper component named after it.
 
+The druxtjs.org front page in the Canvas editor, with its Hero component
+selected and the Hero's inputs in the sidebar. The site renders the same page
+through this module.
+
+![The Drupal Canvas editor showing the druxtjs.org front page, with the Hero component outlined and its heading, lead and note link inputs in the settings sidebar](https://raw.githubusercontent.com/druxt-contrib/druxt-canvas/0.x/.github/screenshots/canvas-editor.png)
+
+The editor's preview here comes from the site, not from this module. Previews
+of draft changes are
+[not supported yet](https://github.com/druxt-contrib/druxt-canvas/issues/4).
+
 ## Contents
 
 - [Features](#features)

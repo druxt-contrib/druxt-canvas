@@ -1,0 +1,17 @@
+{
+    "_hash": "5920f9b95f2069c0ba19d2e44ff58ea295f52f07cf91637eb9010a8d8558b0d3",
+    "patches": {
+        "drupal/canvas": [
+            {
+                "package": "drupal/canvas",
+                "description": "JSON:API config collections fail after the first page (3592360)",
+                "url": "patches/canvas-3592360-config-entity-query-offset.patch",
+                "sha256": "f3f52d8b60b0c87da473c5392073f1b72b1c7f0504015fd36aaef512e4bc6bf5",
+                "depth": 1,
+                "extra": {
+                    "provenance": "root"
+                }
+            }
+        ]
+    }
+}

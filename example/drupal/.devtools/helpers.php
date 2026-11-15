@@ -4,17 +4,14 @@
  * @file
  * Shared helper functions for the example backend's DevTools scripts.
  *
- * Adapted from the `.devtools/` pattern in `packages/druxtjs/docs/drupal/`
- * (branch `feature/docs-drupal-local-php`), itself modelled on
- * `stuart-clark/stuar.tc` / `AlexSkrypnyk/drupal_extension_scaffold`),
- * for a full site checkout: no `build/` directory, no `composer
- * create-project` scaffolding step — `drupal/` already IS the site
- * codebase.
+ * Modelled on the `.devtools/` pattern of
+ * `AlexSkrypnyk/drupal_extension_scaffold`, for a full site checkout: there is
+ * no `build/` directory and no `composer create-project` step, because
+ * `drupal/` is the site codebase.
  *
- * Key difference from the docs/drupal reference: the dotenv file lives at
- * the repo root (`../.env` relative to `drupal/`), not in the current
- * directory, because it's shared between the Drupal backend and the Nuxt
- * frontend.
+ * The dotenv file lives at the repository root (`../.env` relative to
+ * `drupal/`), not in the current directory, because the Drupal backend and the
+ * Nuxt frontend share it.
  *
  * @phpcs:disable Drupal.NamingConventions.ValidFunctionName.InvalidName
  */

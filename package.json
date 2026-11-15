@@ -1,11 +1,13 @@
 {
   "name": "@druxt-contrib/canvas",
   "version": "0.0.0",
-  "description": "Drupal Canvas pages for Druxt.",
+  "description": "Renders Drupal Canvas pages in a Druxt site, from Drupal's JSON:API.",
   "keywords": [
     "canvas",
+    "decoupled",
     "drupal",
     "druxt",
+    "jsonapi",
     "module",
     "nuxt"
   ],
@@ -23,12 +25,14 @@
       "require": "./dist/index.ssr.js",
       "import": "./dist/index.esm.js"
     },
-    "./components/*": "./dist/components/*"
+    "./components/*": "./dist/components/*",
+    "./package.json": "./package.json"
   },
   "main": "dist/index.ssr.js",
   "module": "dist/index.esm.js",
   "files": [
-    "dist"
+    "dist",
+    "CHANGELOG.md"
   ],
   "scripts": {
     "build": "siroc build",
@@ -67,10 +71,6 @@
     "test:visual:update": "playwright test --grep @visual --update-snapshots",
     "test:watch": "jest --watch"
   },
-  "peerDependencies": {
-    "druxt": "^0.25.1",
-    "vuex": "^3.6.2"
-  },
   "devDependencies": {
     "@babel/core": "7.20.2",
     "@babel/preset-env": "7.20.2",
@@ -100,6 +100,12 @@
     "vue-jest": "3.0.7",
     "vue-template-compiler": "2.7.16",
     "vuex": "3.6.2"
+  },
+  "peerDependencies": {
+    "druxt": ">=0.25.1 <1",
+    "druxt-entity": ">=0.29.1 <1",
+    "druxt-router": ">=0.32.1 <1",
+    "vuex": "^3.6.2"
   },
   "packageManager": "npm@8.19.4",
   "engines": {

@@ -58,7 +58,8 @@ export const getProps = (inputs) =>
  *
  * - `orphan`: the parent is not in the list.
  * - `slot`: the item has a parent but no slot.
- * - `cycle`: no root reaches the item, because its parents form a loop.
+ * - `cycle`: no root reaches the item, because its parents form a loop or an
+ *   ancestor was left out.
  * - `invalid`: the item has no uuid or no component id.
  * - `duplicate`: an earlier item has the same uuid; the first one is kept.
  *

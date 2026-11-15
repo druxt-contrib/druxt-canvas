@@ -15,7 +15,11 @@ const notLoaded = ({ id }, resource) => {
   const error = new Error(
     message || `The Canvas page ${id} could not be loaded.`
   )
-  if (statusCode) error.statusCode = statusCode
+  if (statusCode) {
+    error.statusCode = statusCode
+    // DruxtModule's error message reads the status from an axios-style response.
+    error.response = { status: statusCode, statusText: message }
+  }
   return error
 }
 

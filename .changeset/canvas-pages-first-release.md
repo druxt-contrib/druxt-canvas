@@ -2,4 +2,9 @@
 '@druxt-contrib/canvas': minor
 ---
 
-Initial release: renders Drupal Canvas pages from JSON:API. Each Canvas component renders through a wrapper component named after it, Canvas page paths render through DruxtRouter and DruxtEntity, and Canvas's menu, views and breadcrumb blocks render as DruxtMenu, DruxtView and DruxtBreadcrumb.
+Add the DruxtCanvas module. It renders Drupal Canvas pages in a Druxt site, from Drupal's JSON:API.
+
+- Renders a Canvas page at its own path through DruxtRouter, or anywhere by its UUID.
+- Renders each Canvas component through a Vue wrapper named after it, with its inputs as props and its slots as Vue slots.
+- Renders Canvas's menu, views and breadcrumb blocks as DruxtMenu, DruxtView and DruxtBreadcrumb.
+- Sets the page title and meta tags from the page's `metatag` field.

@@ -311,6 +311,7 @@ describe('DruxtCanvas', () => {
       expect(error).toBeInstanceOf(Error)
       expect(error.message).toBe(message)
       expect(error.statusCode).toBe(statusCode)
+      expect((error.response || {}).status).toBe(statusCode)
       expect(wrapper.vm.entity).toStrictEqual({})
     }
   )

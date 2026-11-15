@@ -28,7 +28,7 @@ export const blockMappings = {
  * @example @lang js
  * // `nuxt.config.js`
  * module.exports = {
- *   buildModules: [
+ *   modules: [
  *     'druxt-entity',
  *     'druxt-router/nuxt',
  *     '@druxt-contrib/canvas'

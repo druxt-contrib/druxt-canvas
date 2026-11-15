@@ -1,8 +1,8 @@
 ---
 name: Release
 
-# Publishes the package to npm. A module made from this template inherits both
-# channels and turns them on by completing the setup in RELEASING.md.
+# Publishes the package to npm, through two channels that stay off until the
+# setup in RELEASING.md is complete.
 #
 # dev: a push to a release branch that changes a changeset publishes a
 # snapshot under the `dev` dist-tag, such as 0.1.0-dev.20261030024907. Nothing
@@ -23,7 +23,7 @@ name: Release
 #
 # Publishing uses npm trusted publishing (OIDC), so there is no token. It stays
 # off until the repository variable NPM_PUBLISH is `true`. Until then the
-# packed tarball is the dry run, which is all this template itself ever does.
+# packed tarball is the dry run.
 
 on:
   push:

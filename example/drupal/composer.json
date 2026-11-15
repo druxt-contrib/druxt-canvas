@@ -11,6 +11,7 @@
     ],
     "require": {
         "composer/installers": "^2.2",
+        "cweagans/composer-patches": "^2",
         "drupal/canvas": "^1.12",
         "drupal/core-composer-scaffold": "~11",
         "drupal/core-project-message": "~11",
@@ -35,7 +36,8 @@
             "php-http/discovery": true,
             "phpstan/extension-installer": true,
             "tbachert/spi": true,
-            "symfony/runtime": true
+            "symfony/runtime": true,
+            "cweagans/composer-patches": true
         }
     },
     "extra": {
@@ -81,6 +83,11 @@
             "post-create-project-cmd-message": [
                 "The example backend is installed by .devtools/provision. See ../README.md."
             ]
+        },
+        "patches": {
+            "drupal/canvas": {
+                "JSON:API config collections fail after the first page (3592360)": "patches/canvas-3592360-config-entity-query-offset.patch"
+            }
         }
     }
 }

@@ -1,0 +1,11 @@
+--- a/src/CoreBugFix/ConfigEntityQuery.php
++++ b/src/CoreBugFix/ConfigEntityQuery.php
+@@ -63,7 +63,7 @@
+     $this->initializePager();
+ 
+     if ($this->range) {
+-      $result = array_slice($result, $this->range['start'], $this->range['length'], TRUE);
++      $result = array_slice($result, (int) $this->range['start'], $this->range['length'], TRUE);
+     }
+     if ($this->count) {
+       return count($result);

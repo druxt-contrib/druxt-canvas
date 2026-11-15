@@ -1,7 +1,7 @@
 <!-- vale off -->
 <!-- The alt text describes what the banner shows: the @druxt-contrib/canvas mark, name and description. The name-colon-description form trips ColonUsage. -->
 <a href="https://druxtjs.org">
-  <img src="https://raw.githubusercontent.com/druxt-contrib/druxt-canvas/0.x/.github/banner.svg" alt="@druxt-contrib/canvas: Canvas module for Druxt">
+  <img src="https://raw.githubusercontent.com/druxt-contrib/druxt-canvas/0.x/.github/banner.svg" alt="@druxt-contrib/canvas: Drupal Canvas module for Druxt">
 </a>
 <!-- vale on -->
 
@@ -14,7 +14,7 @@
 [![Known Vulnerabilities](https://snyk.io/test/github/druxt-contrib/druxt-canvas/badge.svg?targetFile=package.json)](https://snyk.io/test/github/druxt-contrib/druxt-canvas?targetFile=package.json)
 [![Discord](https://img.shields.io/discord/753866667590680587?label=discord&logo=discord&logoColor=white)](https://discord.druxtjs.org)
 
-> Canvas module for Druxt
+> Drupal Canvas module for Druxt
 
 Renders the pages editors build in
 [Drupal Canvas](https://www.drupal.org/project/canvas) in a

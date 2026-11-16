@@ -11,6 +11,8 @@
  */
 const path = require('path')
 
+const MarkdownIt = require('markdown-it')
+
 const REPO = (() => {
   try {
     // Changesets runs from the repository root.
@@ -73,20 +75,48 @@ const VERBS = {
   restored: 'Restored',
 }
 
-// Code spans, links and autolinks keep their text as written, so a `#123`
-// in a URL or in code is not turned into an issue link.
-const LITERAL = /(`+)[\s\S]*?\1|!?\[[^\]]*\]\([^)]*\)|<[^>\s]+>/g
+// CommonMark, so a summary is read the way it renders.
+const md = new MarkdownIt('commonmark')
 
-const linkPlainIssues = (text) => text.replace(/(^|[^[])#(\d+)\b/g, `$1[#$2](${REPO}/issues/$2)`)
+// Records each `#123` the inline parser reaches as plain text, with its
+// offset. It runs after every built-in rule, so autolinks, code spans, HTML,
+// entities and escapes consume their own text first, and a ref inside one of
+// them never gets here. A ref in the text of a Markdown link or an HTML `<a>`
+// is reached, but with `linkLevel` raised, so it is skipped.
+md.inline.ruler.push('issue_ref', (state, silent) => {
+  const ref = /^#(\d+)\b/.exec(state.src.slice(state.pos, state.posMax))
+  if (!ref) return false
+  if (!silent && !state.linkLevel) {
+    const token = state.push('issue_ref', '', 0)
+    token.content = ref[1]
+    token.meta = { start: state.pos, end: state.pos + ref[0].length }
+  }
+  state.pos += ref[0].length
+  return true
+})
 
-const linkIssues = (text) => {
+const linkIssues = (text, env) => {
+  // A bare URL, such as `https://example.org/guide#123`, is text to CommonMark,
+  // so its refs are found with linkify-it, which markdown-it bundles. Each one
+  // runs on to the next space, past any parentheses linkify-it leaves out.
+  const urls = (md.linkify.match(text) || []).map((url) => {
+    const rest = text.slice(url.lastIndex).search(/\s/)
+    return [url.index, rest < 0 ? text.length : url.lastIndex + rest]
+  })
+  const inUrl = (start) => urls.some(([from, to]) => from <= start && start < to)
+  // `[#123]` reads as a label someone meant to write.
+  const refs = md
+    .parseInline(text, env)[0]
+    .children.filter(
+      (token) => token.type === 'issue_ref' && text[token.meta.start - 1] !== '[' && !inUrl(token.meta.start),
+    )
   let out = ''
   let last = 0
-  for (const match of text.matchAll(LITERAL)) {
-    out += linkPlainIssues(text.slice(last, match.index)) + match[0]
-    last = match.index + match[0].length
+  for (const ref of refs) {
+    out += text.slice(last, ref.meta.start) + `[#${ref.content}](${REPO}/issues/${ref.content})`
+    last = ref.meta.end
   }
-  return out + linkPlainIssues(text.slice(last))
+  return out + text.slice(last)
 }
 
 // The Conventional Commits types. Any other word before a colon, such as
@@ -98,10 +128,12 @@ const PREFIX = new RegExp(`^(${TYPES})(?:\\(([^)]*)\\))?(!)?:\\s*`)
  * One changeset summary line to one changelog sentence.
  *
  * @param {string} summary - The changeset's first line.
+ * @param {object} [env] - The markdown-it environment the rest of the summary
+ *   was parsed in, so a reference link defined there resolves.
  * @returns {{ text: string, issues: string[], breaking: boolean }} The
  *   rewritten sentence plus any issue refs found in the prefix.
  */
-const rewrite = (summary) => {
+const rewrite = (summary, env = {}) => {
   let text = summary.trim()
   const issues = []
   let breaking = false
@@ -120,22 +152,44 @@ const rewrite = (summary) => {
     text = text.charAt(0).toUpperCase() + text.slice(1)
   }
 
-  text = linkIssues(text).replace(/\.+$/, '') + '.'
+  text = linkIssues(text, env).replace(/\.+$/, '') + '.'
   return { text, issues, breaking }
 }
 
 // A `Commit: <sha>` line names the change when the changeset file was added later.
-const COMMIT = /^Commit:\s*([0-9a-f]{7,40})\s*$/i
+const COMMIT = /^ {0,3}Commit:\s*([0-9a-f]{7,40})\s*$/i
+// Conventional commits also declare breakage in a footer.
+const BREAKING = /^ {0,3}BREAKING[ -]CHANGE:/
+
+/**
+ * Which lines are prose rather than code, so an example of a `Commit:` line
+ * or a breaking-change footer stays an example.
+ *
+ * @param {string[]} lines - The summary's lines after the first.
+ * @param {object} env - Collects the link reference definitions found.
+ * @returns {boolean[]} True for each line outside a fenced or indented code
+ *   block or an HTML block.
+ */
+const proseLines = (lines, env) => {
+  const prose = lines.map(() => true)
+  for (const token of md.parse(lines.join('\n'), env)) {
+    if (['fence', 'code_block', 'html_block'].includes(token.type) && token.map) {
+      for (let i = token.map[0]; i < token.map[1]; i++) prose[i] = false
+    }
+  }
+  return prose
+}
 
 const getReleaseLine = async (changeset) => {
   const [first, ...lines] = changeset.summary.split('\n')
-  const override = lines.map((line) => COMMIT.exec(line.trim())).find(Boolean)
-  const rest = lines.filter((line) => !COMMIT.test(line.trim()))
+  const env = {}
+  const prose = proseLines(lines, env)
+  const override = lines.map((line, i) => prose[i] && COMMIT.exec(line)).find(Boolean)
+  const rest = lines.filter((line, i) => !(prose[i] && COMMIT.test(line)))
   const commit = override ? override[1] : changeset.commit
-  const result = rewrite(first)
+  const result = rewrite(first, env)
   const { text, issues } = result
-  // Conventional commits also declare breakage in a footer.
-  const breaking = result.breaking || rest.some((line) => /^BREAKING[ -]CHANGE:/.test(line.trim()))
+  const breaking = result.breaking || lines.some((line, i) => prose[i] && BREAKING.test(line))
 
   const refs = issues.map((n) => `[#${n}](${REPO}/issues/${n})`)
   if (commit) {

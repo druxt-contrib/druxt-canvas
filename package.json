@@ -1,6 +1,6 @@
 {
   "name": "@druxt-contrib/canvas",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Renders Drupal Canvas pages in a Druxt site, from Drupal's JSON:API.",
   "keywords": [
     "canvas",

@@ -44,6 +44,7 @@ libsqlite
 libxml
 libzip
 Licence
+llms
 lndo
 macrotask
 markdownlint

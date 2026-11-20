@@ -9,6 +9,7 @@
 
 [![npm](https://img.shields.io/npm/v/@druxt-contrib/canvas)](https://www.npmjs.com/package/@druxt-contrib/canvas)
 [![npm@dev](https://img.shields.io/npm/v/@druxt-contrib/canvas/dev)](https://www.npmjs.com/package/@druxt-contrib/canvas/v/dev)
+[![Docs](https://img.shields.io/badge/docs-online-blue)](https://contrib.druxtjs.org/druxt-canvas/)
 [![CI](https://github.com/druxt-contrib/druxt-canvas/actions/workflows/ci.yml/badge.svg?branch=0.x)](https://github.com/druxt-contrib/druxt-canvas/actions/workflows/ci.yml)
 [![codecov](https://codecov.io/gh/druxt-contrib/druxt-canvas/branch/0.x/graph/badge.svg)](https://codecov.io/gh/druxt-contrib/druxt-canvas)
 [![Known Vulnerabilities](https://snyk.io/test/github/druxt-contrib/druxt-canvas/badge.svg?targetFile=package.json)](https://snyk.io/test/github/druxt-contrib/druxt-canvas?targetFile=package.json)
@@ -223,6 +224,8 @@ covers the rest.
   element, as [Rendering a page yourself](#rendering-a-page-yourself) shows.
 
 ## More documentation
+
+These pages are also published as a [documentation site](https://contrib.druxtjs.org/druxt-canvas/).
 
 - [Drupal setup](docs/drupal-setup.md): modules, permissions, OAuth clients
   and the Canvas 1.12.0 patch

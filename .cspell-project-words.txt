@@ -44,6 +44,7 @@ libsqlite
 libxml
 libzip
 Licence
+llms
 lndo
 macrotask
 markdownlint
@@ -54,6 +55,7 @@ networkidle
 nproc
 Nuxt
 nuxt
+nuxtjs
 nvm
 nvmrc
 opcache

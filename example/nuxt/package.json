@@ -10,10 +10,10 @@
   "dependencies": {
     "@druxt-contrib/canvas": "file:../..",
     "consola": "2.15.3",
-    "druxt": "^0.25.1",
-    "druxt-entity": "^0.29.1",
+    "druxt": "^0.25.2",
+    "druxt-entity": "^0.29.2",
     "druxt-router": "^0.32.1",
-    "nuxt": "2.15.8"
+    "nuxt": "2.18.1"
   },
   "private": true,
   "packageManager": "npm@8.19.4",
